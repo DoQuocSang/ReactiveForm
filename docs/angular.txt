@@ -1,0 +1,2 @@
+- Reactive form sử dụng phương pháp tường minh và immutable (bất biến) để quản lý trạng thái của biểu mẫu tại một thời điểm nhất định.
+- Reactive form sử dụng các observable, cung cấp cách truy cập đồng bộ vào model dữ liệu và theo dõi sự thay đổi thông qua các luồng obsrvable
