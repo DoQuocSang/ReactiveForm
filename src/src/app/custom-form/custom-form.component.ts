@@ -16,14 +16,21 @@ import {
 export class CustomFormComponent {
   private formBuilder = inject(FormBuilder);
 
+  size: number[] = [30, 32, 36, 38, 10];
+  default: number = 32;
+
+  constructor() {
+    // this.color().setValue
+  }
+
   productForm = this.formBuilder.group({
-    name: ['', Validators.required],
+    name: ['', [Validators.required, Validators.minLength(10)]],
     brand: [''],
-    price: ['0', Validators.required],
+    price: ['0'],
     variants: this.formBuilder.array([
       this.formBuilder.group({
-        color: [''],
-        size: ['0'],
+        color: ['', Validators.required],
+        size: [''],
         quantity: ['0'],
       }),
     ]),
@@ -33,6 +40,14 @@ export class CustomFormComponent {
 
   get variants() {
     return this._variants;
+  }
+
+  get name() {
+    return this.productForm.get('name');
+  }
+
+  getColorByIndex(index: number) {
+    return this._variants.at(index).get('color');
   }
 
   deleteAllVariants() {
@@ -46,7 +61,7 @@ export class CustomFormComponent {
   addVariant() {
     this._variants.push(
       this.formBuilder.group({
-        color: ['blue'],
+        color: ['blue', Validators.required],
         size: ['30'],
         quantity: ['0'],
       })
@@ -56,6 +71,7 @@ export class CustomFormComponent {
   }
 
   onSubmit() {
-    console.warn(this.productForm.value);
+    console.log(this.productForm.value);
+    // alert(JSON.stringify(this.productForm.value, null, 1));
   }
 }
