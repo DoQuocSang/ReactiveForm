@@ -5,13 +5,13 @@ import {
   CustomFormComponent,
 } from './components/custom-form/custom-form.component';
 import {
-  ProductVariantFormComponent,
-} from './components/product-variant-form/product-variant-form.component';
+  VariantFormComponent,
+} from './components/variant-form/variant-form.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CustomFormComponent, ProductVariantFormComponent],
+  imports: [RouterOutlet, VariantFormComponent, CustomFormComponent],
   templateUrl: './app.component.html',
 })
 export class AppComponent {

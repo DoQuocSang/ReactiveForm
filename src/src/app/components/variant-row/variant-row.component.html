@@ -1,0 +1,21 @@
+<td class="p-4" [ngClass]="'text-'+item.color">
+    {{ item.color }}
+</td>
+<td class="p-4">
+    {{ item.size }}
+</td>
+<td class="p-4">
+    {{ item.quantity }}
+</td>
+<td class="p-4">
+    <div class="flex items-center justify-end gap-2">
+        <button type="button" (click)="openVariantForm(item.id)">
+            <lucide-angular [img]="Edit" [size]="20"
+                class=" my-icon text-slate-500 hover:text-teal-500"></lucide-angular>
+        </button>
+        <button type="button">
+            <lucide-angular [img]="Trash" [size]="20"
+                class="my-icon text-slate-500 hover:text-red-500"></lucide-angular>
+        </button>
+    </div>
+</td>
