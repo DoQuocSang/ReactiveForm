@@ -10,6 +10,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 import { products } from '../data/products.data';
+import { UploadFile } from '../models/file.model';
 import { Product } from '../models/product.model';
 import { Variant } from '../models/variant.model';
 
@@ -160,5 +161,20 @@ export class ProductStore extends ImmerComponentStore<State> {
     if (product) {
       product.variants = [];
     }
+  });
+
+  readonly addImage = this.updater((state, value: UploadFile) => {
+    state.items.forEach((item) => {
+      if (item.id === state.currentProductId) item.images.push(value);
+    });
+  });
+
+  readonly deleteImage = this.updater((state, id: string) => {
+    // state.items.forEach((item) => {
+    //   item.images.splice(
+    //     item.images.findIndex((item) => item.id === id),
+    //     1
+    //   );
+    // });
   });
 }

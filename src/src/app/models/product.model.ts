@@ -1,3 +1,4 @@
+import { UploadFile } from './file.model';
 import { Variant } from './variant.model';
 
 export type Product = {
@@ -9,5 +10,6 @@ export type Product = {
   dateStock: Date;
   price: number;
   type: number;
+  images: UploadFile[];
   variants: Variant[];
 };
