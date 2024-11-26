@@ -113,55 +113,6 @@ export class ProductStore extends ImmerComponentStore<State> {
     });
   }
 
-  // addOrUpdateVariant(value: Variant) {
-  //   const { currentVariantId } = this.state() || {};
-
-  //   if (currentVariantId) {
-  //     this.updateVariant(value);
-  //   } else {
-  //     this.addVariant(value);
-  //   }
-
-  //   this.patchState({ activeVariantId: value.id });
-
-  //   this.toggleVariantFormVisible();
-  // }
-
-  // addVariant(value: Variant) {
-  //   console.log(value);
-
-  //   this.setState((prevState) => ({
-  //     ...prevState,
-  //     items: structuredClone(prevState.items).map((item) => {
-  //       return {
-  //         ...item,
-  //         variants: [...item.variants, value],
-  //       };
-  //     }),
-  //   }));
-
-  //   console.log(this.state().items[2].variants);
-  // }
-
-  // updateVariant(value: Variant) {
-  //   this.setState((prevState) => ({
-  //     ...prevState,
-  //     items: structuredClone(prevState.items).map((item) => {
-  //       return {
-  //         ...item,
-  //         variants: item.variants.map((variant) =>
-  //           variant.id === value.id
-  //             ? {
-  //                 ...variant,
-  //                 ...value,
-  //               }
-  //             : variant
-  //         ),
-  //       };
-  //     }),
-  //   }));
-  // }
-
   addVariant = this.updater((state, value: Variant) => {
     state.items.map((item) => {
       item.variants.push(value);
@@ -192,29 +143,12 @@ export class ProductStore extends ImmerComponentStore<State> {
     this.toggleVariantFormVisible();
   };
 
-  // deleteVariant(id: string) {
-  //   this.setState((prevState) => ({
-  //     ...prevState,
-  //     items: structuredClone(prevState.items).map((item) => {
-  //       return {
-  //         ...item,
-  //         variants: [...item.variants, value],
-  //       };
-  //     }),
-  //   }));
-
-  //   console.log(this.state().items[2].variants);
-  // }
-
-  //  -------------------
-  // Foreach cannot return/break
-  //  -------------------
-  // findProductByVariantId(id: string) {
-  //   for (const product of this.state().items) {
-  //     if (product.variants.find((v) => v.id === id)) {
-  //       return product;
-  //     }
-  //   }
-  //   return null;
-  // }
+  readonly deleteVariant = this.updater((state, id: string) => {
+    state.items.forEach((item) => {
+      item.variants.splice(
+        item.variants.findIndex((item) => item.id === id),
+        1
+      );
+    });
+  });
 }
