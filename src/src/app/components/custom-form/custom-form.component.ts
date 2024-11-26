@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 
 import {
+  CloudUpload,
   Edit,
   LucideAngularModule,
   Trash,
@@ -35,6 +36,7 @@ import {
 export class CustomFormComponent {
   readonly Trash = Trash;
   readonly Edit = Edit;
+  readonly CloudUpload = CloudUpload;
 
   private formBuilder: FormBuilder = inject(FormBuilder);
   private productStore: ProductStore = inject(ProductStore);
