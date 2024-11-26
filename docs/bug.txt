@@ -1,0 +1,4 @@
+- Vòng lặp .foreach nhận hàm callback làm đối số vì vậy hàm callback sẽ luôn được thực hiện với mỗi item. 
+do đó, ko thể break hay return ở bên trong.
+- Bản thân nó cũng ko có cơ chế ngắt vòng lặp 
+- Bug này có ở cả C#, JS, TS,...

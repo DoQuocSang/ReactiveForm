@@ -1,9 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  inject,
+} from '@angular/core';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
-import { LucideAngularModule, X } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  X,
+} from 'lucide-angular';
 
+import { Variant } from '../../models/variant.model';
 import { ProductStore } from '../../store/product.store';
 
 @Component({
@@ -50,7 +60,9 @@ export class VariantFormComponent {
     this.productStore.toggleVariantFormVisible();
   }
 
-  deleteAllVariants() {}
+  onSubmit() {
+    this.productStore.addOrUpdateVariant(this.variantForm.value as Variant);
+  }
 
   addVariant() {}
 }

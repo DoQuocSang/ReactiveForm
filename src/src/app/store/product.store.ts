@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 
-import { delay, finalize, of, tap } from 'rxjs';
+import {
+  delay,
+  finalize,
+  of,
+  tap,
+} from 'rxjs';
 
 import { ComponentStore } from '@ngrx/component-store';
 
@@ -40,6 +45,28 @@ export class ProductStore extends ComponentStore<State> {
     this.loadData();
   }
 
+  readonly loadData = this.effect<void>((source$) =>
+    source$.pipe(
+      tap(() => this.patchState({ isLoading: true })),
+      tap(
+        of(...products).pipe(
+          delay(0),
+          tap((data) =>
+            this.setState((state) => {
+              return {
+                ...state,
+                items: [...state.items, data],
+              };
+            })
+          ),
+          finalize(() => {
+            this.patchState({ isLoading: false });
+          })
+        )
+      )
+    )
+  );
+
   readonly vm$ = this.select(
     ({
       items,
@@ -63,6 +90,7 @@ export class ProductStore extends ComponentStore<State> {
         isEditVariant,
         currentItem,
         currentVariants,
+        currentVariantId,
         editVariant,
       };
     }
@@ -73,12 +101,6 @@ export class ProductStore extends ComponentStore<State> {
       currentVariantId: id,
       isEditVariant: !this.state().isEditVariant,
     });
-
-    console.log(id);
-
-    this.vm$.subscribe((data) => {
-      console.log(data.editVariant);
-    });
   };
 
   getCurrentItem() {
@@ -87,25 +109,50 @@ export class ProductStore extends ComponentStore<State> {
     });
   }
 
-  readonly loadData = this.effect<void>((source$) =>
-    source$.pipe(
-      tap(() => this.patchState({ isLoading: true })),
-      tap(
-        of(...products).pipe(
-          delay(0),
-          tap((data) =>
-            this.setState((state) => {
-              return {
-                ...state,
-                items: [...state.items, data],
-              };
-            })
-          ),
-          finalize(() => {
-            this.patchState({ isLoading: false });
-          })
-        )
-      )
-    )
-  );
+  addOrUpdateVariant(value: Variant) {
+    const { currentVariantId } = this.state() || {};
+    // Update
+    if (currentVariantId) {
+      this.setState((prevState) => ({
+        ...prevState,
+        items: structuredClone(prevState.items).map((item) => {
+          return {
+            ...item,
+            variants: item.variants.map((variant) =>
+              variant.id === currentVariantId
+                ? {
+                    ...variant,
+                    ...value,
+                  }
+                : variant
+            ),
+          };
+        }),
+      }));
+    } else {
+      // Add
+    }
+
+    this.toggleVariantFormVisible();
+  }
+
+  updateVariant() {
+    const updateVariant = this.state().items.map((item) => {
+      return item.variants.find(
+        (item) => item.id === this.state().currentVariantId
+      );
+    });
+  }
+
+  //  -------------------
+  // Foreach ko return duoc
+  //  -------------------
+  // findProductByVariantId(id: string) {
+  //   for (const product of this.state().items) {
+  //     if (product.variants.find((v) => v.id === id)) {
+  //       return product;
+  //     }
+  //   }
+  //   return null;
+  // }
 }

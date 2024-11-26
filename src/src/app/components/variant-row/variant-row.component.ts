@@ -1,7 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+} from '@angular/core';
 
-import { Edit, LucideAngularModule, Trash } from 'lucide-angular';
+import {
+  Edit,
+  LucideAngularModule,
+  Trash,
+} from 'lucide-angular';
 
 import { Variant } from '../../models/variant.model';
 import { ProductStore } from '../../store/product.store';
@@ -12,7 +20,7 @@ import { ProductStore } from '../../store/product.store';
   imports: [LucideAngularModule, CommonModule],
   templateUrl: './variant-row.component.html',
   host: {
-    class: 'border-b border-slate-200 hover:bg-slate-100 cursor-pointer',
+    class: 'border-b border-slate-200 hover:bg-red-100 cursor-pointer',
   },
 })
 export class VariantRowComponent {

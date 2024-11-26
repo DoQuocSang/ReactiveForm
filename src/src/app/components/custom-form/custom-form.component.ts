@@ -1,11 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  inject,
+} from '@angular/core';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
-import { Edit, LucideAngularModule, Trash } from 'lucide-angular';
+import {
+  Edit,
+  LucideAngularModule,
+  Trash,
+} from 'lucide-angular';
 
+import { Variant } from '../../models/variant.model';
 import { ProductStore } from '../../store/product.store';
-import { VariantTableComponent } from '../variant-table/variant-table.component';
+import {
+  VariantTableComponent,
+} from '../variant-table/variant-table.component';
 
 @Component({
   selector: 'app-custom-form',
@@ -50,6 +63,7 @@ export class CustomFormComponent {
     dateStock: [''],
     weight: [0],
     price: [0],
+    variants: [[] as Variant[]],
   });
 
   get type() {
@@ -67,12 +81,16 @@ export class CustomFormComponent {
           dateStock: data.dateStock.toISOString().split('T')[0],
           weight: data.weight,
           price: data.price,
+          variants: data.variants,
         });
       }
     });
   }
 
   onSubmit() {
-    console.warn(this.productForm.value);
+    // console.warn(this.productForm.value);
+    sessionStorage.setItem('formData', JSON.stringify(this.productForm.value));
+    const data = JSON.parse(sessionStorage.getItem('formData') ?? '');
+    console.log(data);
   }
 }
