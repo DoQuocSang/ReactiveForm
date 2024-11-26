@@ -6,6 +6,7 @@ import {
   of,
   tap,
 } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ComponentStore } from '@ngrx/component-store';
 
@@ -19,6 +20,7 @@ interface State {
   currentVariantId: string;
   isEditVariant: boolean;
   isLoading: boolean;
+  activeVariantId: string;
 }
 
 const initialState: State = {
@@ -27,10 +29,11 @@ const initialState: State = {
   currentVariantId: 'V000',
   isEditVariant: false,
   isLoading: false,
+  activeVariantId: 'No variant',
 };
 
 const defaultVariant: Variant = {
-  id: 'V000',
+  id: 'This is id',
   color: '#000000',
   size: 0,
   quantity: 0,
@@ -74,15 +77,16 @@ export class ProductStore extends ComponentStore<State> {
       currentVariantId,
       isLoading,
       isEditVariant,
+      activeVariantId,
     }) => {
       let currentItem = items.find((item) => item.id === currentProductId);
 
       let currentVariants: Variant[] =
         items.find((item) => item.id === currentProductId)?.variants ?? [];
 
-      let editVariant =
-        currentVariants.find((item) => item.id === currentVariantId) ??
-        defaultVariant;
+      let editVariant = currentVariants.find(
+        (item) => item.id === currentVariantId
+      ) ?? { ...defaultVariant, id: uuidv4() };
 
       return {
         items,
@@ -92,6 +96,7 @@ export class ProductStore extends ComponentStore<State> {
         currentVariants,
         currentVariantId,
         editVariant,
+        activeVariantId,
       };
     }
   );
@@ -111,37 +116,51 @@ export class ProductStore extends ComponentStore<State> {
 
   addOrUpdateVariant(value: Variant) {
     const { currentVariantId } = this.state() || {};
-    // Update
+
     if (currentVariantId) {
-      this.setState((prevState) => ({
-        ...prevState,
-        items: structuredClone(prevState.items).map((item) => {
-          return {
-            ...item,
-            variants: item.variants.map((variant) =>
-              variant.id === currentVariantId
-                ? {
-                    ...variant,
-                    ...value,
-                  }
-                : variant
-            ),
-          };
-        }),
-      }));
+      this.updateVariant(value);
     } else {
-      // Add
+      this.addVariant(value);
     }
+
+    this.patchState({ activeVariantId: value.id });
 
     this.toggleVariantFormVisible();
   }
 
-  updateVariant() {
-    const updateVariant = this.state().items.map((item) => {
-      return item.variants.find(
-        (item) => item.id === this.state().currentVariantId
-      );
-    });
+  addVariant(value: Variant) {
+    console.log(value);
+
+    this.setState((prevState) => ({
+      ...prevState,
+      items: structuredClone(prevState.items).map((item) => {
+        return {
+          ...item,
+          variants: [...item.variants, value],
+        };
+      }),
+    }));
+
+    console.log(this.state().items[2].variants);
+  }
+
+  updateVariant(value: Variant) {
+    this.setState((prevState) => ({
+      ...prevState,
+      items: structuredClone(prevState.items).map((item) => {
+        return {
+          ...item,
+          variants: item.variants.map((variant) =>
+            variant.id === value.id
+              ? {
+                  ...variant,
+                  ...value,
+                }
+              : variant
+          ),
+        };
+      }),
+    }));
   }
 
   //  -------------------

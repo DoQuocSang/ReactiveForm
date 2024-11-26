@@ -13,6 +13,7 @@ import {
   LucideAngularModule,
   Trash,
 } from 'lucide-angular';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Variant } from '../../models/variant.model';
 import { ProductStore } from '../../store/product.store';
@@ -56,6 +57,7 @@ export class CustomFormComponent {
   types: string[] = ['Shoes', 'Boots', 'Loafer', 'Sandal'];
 
   productForm = this.formBuilder.group({
+    id: [uuidv4()],
     name: [''],
     brand: [0],
     type: [0],
@@ -74,6 +76,7 @@ export class CustomFormComponent {
     this.productStore.getCurrentItem().subscribe((data) => {
       if (data) {
         this.productForm.patchValue({
+          id: data.id,
           name: data.name,
           brand: data.brand,
           type: data.type,

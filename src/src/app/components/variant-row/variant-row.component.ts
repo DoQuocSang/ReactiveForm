@@ -20,7 +20,7 @@ import { ProductStore } from '../../store/product.store';
   imports: [LucideAngularModule, CommonModule],
   templateUrl: './variant-row.component.html',
   host: {
-    class: 'border-b border-slate-200 hover:bg-red-100 cursor-pointer',
+    class: 'border-b border-slate-200 cursor-pointer',
   },
 })
 export class VariantRowComponent {

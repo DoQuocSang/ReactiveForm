@@ -35,6 +35,12 @@
             app-variant-row
             *ngFor="let item of vm.currentVariants"
             [item]="item"
+            class="hover:bg-slate-100"
+            [ngClass]="
+              item.id === vm.activeVariantId
+                ? 'text-emerald-500 font-medium'
+                : ''
+            "
           ></tr>
         </tbody>
       </table>
