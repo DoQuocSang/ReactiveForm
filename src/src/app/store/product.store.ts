@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 
+import { ImmerComponentStore } from 'ngrx-immer/component-store';
 import {
   delay,
   finalize,
@@ -7,8 +8,6 @@ import {
   tap,
 } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
-
-import { ComponentStore } from '@ngrx/component-store';
 
 import { products } from '../data/products.data';
 import { Product } from '../models/product.model';
@@ -42,7 +41,7 @@ const defaultVariant: Variant = {
 @Injectable({
   providedIn: 'root',
 })
-export class ProductStore extends ComponentStore<State> {
+export class ProductStore extends ImmerComponentStore<State> {
   constructor() {
     super(initialState);
     this.loadData();
@@ -114,7 +113,72 @@ export class ProductStore extends ComponentStore<State> {
     });
   }
 
-  addOrUpdateVariant(value: Variant) {
+  // addOrUpdateVariant(value: Variant) {
+  //   const { currentVariantId } = this.state() || {};
+
+  //   if (currentVariantId) {
+  //     this.updateVariant(value);
+  //   } else {
+  //     this.addVariant(value);
+  //   }
+
+  //   this.patchState({ activeVariantId: value.id });
+
+  //   this.toggleVariantFormVisible();
+  // }
+
+  // addVariant(value: Variant) {
+  //   console.log(value);
+
+  //   this.setState((prevState) => ({
+  //     ...prevState,
+  //     items: structuredClone(prevState.items).map((item) => {
+  //       return {
+  //         ...item,
+  //         variants: [...item.variants, value],
+  //       };
+  //     }),
+  //   }));
+
+  //   console.log(this.state().items[2].variants);
+  // }
+
+  // updateVariant(value: Variant) {
+  //   this.setState((prevState) => ({
+  //     ...prevState,
+  //     items: structuredClone(prevState.items).map((item) => {
+  //       return {
+  //         ...item,
+  //         variants: item.variants.map((variant) =>
+  //           variant.id === value.id
+  //             ? {
+  //                 ...variant,
+  //                 ...value,
+  //               }
+  //             : variant
+  //         ),
+  //       };
+  //     }),
+  //   }));
+  // }
+
+  addVariant = this.updater((state, value: Variant) => {
+    state.items.map((item) => {
+      item.variants.push(value);
+    });
+  });
+
+  updateVariant = this.updater((state, value: Variant) => {
+    state.items.forEach((item) => {
+      item.variants.forEach((variant) => {
+        if (variant.id === value.id) {
+          Object.assign(variant, value);
+        }
+      });
+    });
+  });
+
+  readonly addOrUpdateVariant = (value: Variant) => {
     const { currentVariantId } = this.state() || {};
 
     if (currentVariantId) {
@@ -126,45 +190,24 @@ export class ProductStore extends ComponentStore<State> {
     this.patchState({ activeVariantId: value.id });
 
     this.toggleVariantFormVisible();
-  }
+  };
 
-  addVariant(value: Variant) {
-    console.log(value);
+  // deleteVariant(id: string) {
+  //   this.setState((prevState) => ({
+  //     ...prevState,
+  //     items: structuredClone(prevState.items).map((item) => {
+  //       return {
+  //         ...item,
+  //         variants: [...item.variants, value],
+  //       };
+  //     }),
+  //   }));
 
-    this.setState((prevState) => ({
-      ...prevState,
-      items: structuredClone(prevState.items).map((item) => {
-        return {
-          ...item,
-          variants: [...item.variants, value],
-        };
-      }),
-    }));
-
-    console.log(this.state().items[2].variants);
-  }
-
-  updateVariant(value: Variant) {
-    this.setState((prevState) => ({
-      ...prevState,
-      items: structuredClone(prevState.items).map((item) => {
-        return {
-          ...item,
-          variants: item.variants.map((variant) =>
-            variant.id === value.id
-              ? {
-                  ...variant,
-                  ...value,
-                }
-              : variant
-          ),
-        };
-      }),
-    }));
-  }
+  //   console.log(this.state().items[2].variants);
+  // }
 
   //  -------------------
-  // Foreach ko return duoc
+  // Foreach cannot return/break
   //  -------------------
   // findProductByVariantId(id: string) {
   //   for (const product of this.state().items) {
