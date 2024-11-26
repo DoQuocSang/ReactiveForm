@@ -11,6 +11,7 @@
           Add
         </button>
         <button
+          (click)="deleteAllVariants()"
           type="button"
           class="font-medium border border-slate-300 text-slate-700 hover:bg-red-500 hover:text-white text-xs px-3.5 py-2 rounded-md"
         >
@@ -45,7 +46,7 @@
         </tbody>
       </table>
       <div
-        *ngIf="!vm.items.length"
+        *ngIf="!vm.currentItem?.variants?.length"
         class="w-full text-center border-b border-slate-200 py-2 text-slate-500"
       >
         This product has no variant

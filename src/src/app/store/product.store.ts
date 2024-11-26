@@ -151,4 +151,14 @@ export class ProductStore extends ImmerComponentStore<State> {
       );
     });
   });
+
+  readonly deleteAllVariants = this.updater((state) => {
+    const product = state.items.find(
+      (item) => item.id === state.currentProductId
+    );
+
+    if (product) {
+      product.variants = [];
+    }
+  });
 }
