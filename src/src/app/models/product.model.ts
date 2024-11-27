@@ -12,4 +12,5 @@ export type Product = {
   type: number;
   images: UploadFile[];
   variants: Variant[];
+  visible: boolean;
 };

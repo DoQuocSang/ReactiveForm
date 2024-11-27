@@ -181,6 +181,28 @@
           <!-- Table Variant -->
           <app-variant-table></app-variant-table>
 
+          <!-- Is Show -->
+          <div class="flex items-center justify-end gap-4">
+            <label for="price" class="font-semibold order-last">Visible</label>
+
+            <div class="w-5 h-5 relative">
+              <input
+                name="visible"
+                type="checkbox"
+                formControlName="visible"
+                id="visible"
+                [checked]="visible"
+                class="forced-colors:appearance-auto appearance-none cursor-pointer w-full h-full bg-red-100 rounded border-none focus:ring-0 focus:ring-transparent checked:bg-emerald-500 transition-all duration-150 ease-in-out"
+              />
+
+              <lucide-angular
+                [img]="Check"
+                class="my-icon size-5 text-white absolute top-0 left-0 pointer-events-none"
+                [ngClass]="visible ? 'block' : 'hidden'"
+              ></lucide-angular>
+            </div>
+          </div>
+
           <!-- Main buttons -->
           <button
             type="submit"

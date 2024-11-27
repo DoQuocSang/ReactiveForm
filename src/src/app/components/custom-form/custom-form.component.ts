@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import {
+  Check,
   CloudUpload,
   Edit,
   LucideAngularModule,
@@ -34,6 +35,7 @@ export class CustomFormComponent {
   readonly Edit = Edit;
   readonly CloudUpload = CloudUpload;
   readonly X = X;
+  readonly Check = Check;
 
   private formBuilder: FormBuilder = inject(FormBuilder);
   private productStore: ProductStore = inject(ProductStore);
@@ -69,6 +71,7 @@ export class CustomFormComponent {
     price: [0],
     images: [[] as UploadFile[]],
     variants: [[] as Variant[]],
+    visible: [false],
   });
 
   get type() {
@@ -77,6 +80,10 @@ export class CustomFormComponent {
 
   get images() {
     return this.productForm.get('images')?.value;
+  }
+
+  get visible() {
+    return this.productForm.get('visible')?.value;
   }
 
   ngOnInit() {
@@ -93,6 +100,7 @@ export class CustomFormComponent {
           price: data.price,
           images: data.images,
           variants: data.variants,
+          visible: data.visible,
         });
       }
     });

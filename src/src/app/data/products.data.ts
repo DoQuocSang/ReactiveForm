@@ -11,6 +11,7 @@ export const products: Product[] = [
     price: 120,
     type: 0, // Shoes
     images: [],
+    visible: false,
     variants: [
       { id: 'V001', color: '#000000', size: 0, quantity: 50 },
       { id: 'V002', color: '#FFFFFF', size: 2, quantity: 30 },
@@ -26,7 +27,7 @@ export const products: Product[] = [
     price: 150,
     type: 0, // Shoes
     images: [],
-
+    visible: true,
     variants: [
       { id: 'V003', color: '#0000FF', size: 2, quantity: 20 },
       { id: 'V004', color: '#808080', size: 4, quantity: 25 },
@@ -42,7 +43,7 @@ export const products: Product[] = [
     price: 110,
     type: 2, // Shoes
     images: [],
-
+    visible: false,
     variants: [
       { id: 'V005', color: '#FF0000', size: 0, quantity: 40 },
       { id: 'V006', color: '#000000', size: 4, quantity: 35 },
@@ -58,7 +59,7 @@ export const products: Product[] = [
     price: 140,
     type: 0, // Shoes
     images: [],
-
+    visible: true,
     variants: [],
   },
   {
@@ -71,7 +72,7 @@ export const products: Product[] = [
     price: 90,
     type: 2, // Loafer
     images: [],
-
+    visible: true,
     variants: [{ id: 'V006', color: '#A52A2A', size: 2, quantity: 20 }],
   },
   {
@@ -84,7 +85,7 @@ export const products: Product[] = [
     price: 130,
     type: 0, // Shoes
     images: [],
-
+    visible: true,
     variants: [
       { id: 'V007', color: '#000000', size: 3, quantity: 40 },
       { id: 'V008', color: '#FFFFFF', size: 4, quantity: 35 },
@@ -100,7 +101,7 @@ export const products: Product[] = [
     price: 135,
     type: 1, // Boots
     images: [],
-
+    visible: true,
     variants: [{ id: 'V009', color: '#808080', size: 1, quantity: 30 }],
   },
   {
@@ -113,7 +114,7 @@ export const products: Product[] = [
     price: 60,
     type: 0, // Shoes
     images: [],
-
+    visible: true,
     variants: [],
   },
   {
@@ -126,7 +127,7 @@ export const products: Product[] = [
     price: 75,
     type: 2, // Loafer
     images: [],
-
+    visible: false,
     variants: [
       { id: 'V10', color: '#0000FF', size: 2, quantity: 50 },
       { id: 'V11', color: '#FF0000', size: 4, quantity: 30 },
@@ -142,7 +143,7 @@ export const products: Product[] = [
     price: 95,
     type: 3, // Sandal
     images: [],
-
+    visible: true,
     variants: [{ id: 'V12', color: '#FFFFFF', size: 2, quantity: 25 }],
   },
 ];
