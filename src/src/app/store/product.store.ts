@@ -83,11 +83,11 @@ export class ProductStore extends ImmerComponentStore<State> {
         (item) => item.id === currentVariantId
       ) ?? { ...defaultVariant, id: uuidv4() };
 
-      // let data = sessionStorage.getItem('data');
+      let data = sessionStorage.getItem('data');
 
-      // if (data) {
-      //   items = JSON.parse(data);
-      // }
+      if (data) {
+        items = JSON.parse(data);
+      }
 
       return {
         items,
@@ -194,12 +194,11 @@ export class ProductStore extends ImmerComponentStore<State> {
     }
   });
 
-  // readonly saveFormData = this.updater((state, product: Product) => {
-  //   const updatedItems = state.items.find((item) => (item.id = product.id));
-  //   sessionStorage.setItem('data', JSON.stringify(state.items));
+  readonly saveFormData = this.updater((state, product: Product) => {
+    const index = state.items.findIndex((item) => item.id === product.id);
+    state.items[index] = product;
 
-  //   if (data) {
-  //     items = JSON.parse(data);
-  //   }
-  // });
+    console.log(state.items);
+    // sessionStorage.setItem('data', JSON.stringify(state.items));
+  });
 }

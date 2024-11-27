@@ -14,6 +14,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 import { UploadFile } from '../../../models/file.model';
+import { Product } from '../../../models/product.model';
 import { Variant } from '../../../models/variant.model';
 import { ProductStore } from '../../../store/product.store';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
@@ -73,7 +74,7 @@ export class CustomFormComponent {
     brand: [0],
     type: [0],
     description: [''],
-    dateStock: [''],
+    dateStock: [new Date()],
     weight: [0],
     price: [0],
     images: [[] as UploadFile[]],
@@ -104,7 +105,7 @@ export class CustomFormComponent {
           brand: data.brand,
           type: data.type,
           description: data.description,
-          dateStock: data.dateStock.toISOString().split('T')[0],
+          dateStock: data.dateStock,
           weight: data.weight,
           price: data.price,
           images: data.images,
@@ -157,9 +158,9 @@ export class CustomFormComponent {
   }
 
   onSubmit() {
-    // console.warn(this.productForm.value);
     sessionStorage.setItem('formData', JSON.stringify(this.productForm.value));
     const data = JSON.parse(sessionStorage.getItem('formData') ?? '');
-    console.log(data);
+    console.log(data as Product);
+    this.productStore.saveFormData(data as Product);
   }
 }

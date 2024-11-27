@@ -1,5 +1,5 @@
 <ng-container *ngIf="vm$ | async as vm">
-  <div *ngIf="vm.isEditVariant" class="fixed inset-0">
+  <div *ngIf="vm.isEditVariant" class="fixed inset-0 z-[99]">
     <div class="relative w-full min-h-screen flex justify-center items-center">
       <div
         (click)="closeForm()"
