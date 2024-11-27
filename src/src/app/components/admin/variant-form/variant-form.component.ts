@@ -1,21 +1,12 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  inject,
-} from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
-import {
-  LucideAngularModule,
-  X,
-} from 'lucide-angular';
+import { LucideAngularModule, X } from 'lucide-angular';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Variant } from '../../models/variant.model';
-import { ProductStore } from '../../store/product.store';
+import { Variant } from '../../../models/variant.model';
+import { ProductStore } from '../../../store/product.store';
 
 @Component({
   selector: 'app-variant-form',

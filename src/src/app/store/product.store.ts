@@ -20,7 +20,7 @@ interface State {
 
 const initialState: State = {
   items: [],
-  currentProductId: 'P003',
+  currentProductId: 'P000',
   currentVariantId: 'V000',
   isEditVariant: false,
   isLoading: false,
@@ -49,14 +49,14 @@ export class ProductStore extends ImmerComponentStore<State> {
       tap(
         of(...products).pipe(
           delay(0),
-          tap((data) =>
+          tap((item) => {
             this.setState((state) => {
               return {
                 ...state,
-                items: [...state.items, data],
+                items: [...state.items, item],
               };
-            })
-          ),
+            });
+          }),
           finalize(() => {
             this.patchState({ isLoading: false });
           })
@@ -83,6 +83,12 @@ export class ProductStore extends ImmerComponentStore<State> {
         (item) => item.id === currentVariantId
       ) ?? { ...defaultVariant, id: uuidv4() };
 
+      // let data = sessionStorage.getItem('data');
+
+      // if (data) {
+      //   items = JSON.parse(data);
+      // }
+
       return {
         items,
         isLoading,
@@ -103,9 +109,11 @@ export class ProductStore extends ImmerComponentStore<State> {
     });
   };
 
-  getCurrentItem() {
+  getCurrentItemById(id: string) {
+    this.patchState({ currentProductId: id });
+
     return this.select((state) => {
-      return state.items.find((item) => item.id === state.currentProductId);
+      return state.items.find((item) => item.id === id);
     });
   }
 
@@ -185,4 +193,13 @@ export class ProductStore extends ImmerComponentStore<State> {
       product.images = [];
     }
   });
+
+  // readonly saveFormData = this.updater((state, product: Product) => {
+  //   const updatedItems = state.items.find((item) => (item.id = product.id));
+  //   sessionStorage.setItem('data', JSON.stringify(state.items));
+
+  //   if (data) {
+  //     items = JSON.parse(data);
+  //   }
+  // });
 }

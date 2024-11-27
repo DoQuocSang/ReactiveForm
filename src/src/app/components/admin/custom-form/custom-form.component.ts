@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import {
@@ -13,10 +13,11 @@ import {
 } from 'lucide-angular';
 import { v4 as uuidv4 } from 'uuid';
 
-import { UploadFile } from '../../models/file.model';
-import { Variant } from '../../models/variant.model';
-import { ProductStore } from '../../store/product.store';
+import { UploadFile } from '../../../models/file.model';
+import { Variant } from '../../../models/variant.model';
+import { ProductStore } from '../../../store/product.store';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
+import { VariantFormComponent } from '../variant-form/variant-form.component';
 import { VariantTableComponent } from '../variant-table/variant-table.component';
 
 @Component({
@@ -27,6 +28,7 @@ import { VariantTableComponent } from '../variant-table/variant-table.component'
     ReactiveFormsModule,
     LucideAngularModule,
     VariantTableComponent,
+    VariantFormComponent,
     UploadFileComponent,
   ],
   templateUrl: './custom-form.component.html',
@@ -39,12 +41,16 @@ export class CustomFormComponent {
   readonly Plus = Plus;
   readonly Check = Check;
 
+  @Input() id = '';
+
   @ViewChild('imageUrlInput') imageUrlInput!: ElementRef;
 
   private formBuilder: FormBuilder = inject(FormBuilder);
   private productStore: ProductStore = inject(ProductStore);
 
   vm$ = this.productStore.vm$;
+
+  isUseURL: boolean = false;
 
   brands: string[] = [
     'Nike',
@@ -87,10 +93,10 @@ export class CustomFormComponent {
     return this.productForm.get('visible')?.value;
   }
 
-  isUseURL: boolean = false;
-
   ngOnInit() {
-    this.productStore.getCurrentItem().subscribe((data) => {
+    console.log(this.id);
+
+    this.productStore.getCurrentItemById(this.id).subscribe((data) => {
       if (data) {
         this.productForm.patchValue({
           id: data.id,

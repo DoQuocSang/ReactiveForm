@@ -1,18 +1,10 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  inject,
-  Input,
-} from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 
-import {
-  Edit,
-  LucideAngularModule,
-  Trash,
-} from 'lucide-angular';
+import { Edit, LucideAngularModule, Trash } from 'lucide-angular';
 
-import { Variant } from '../../models/variant.model';
-import { ProductStore } from '../../store/product.store';
+import { Variant } from '../../../models/variant.model';
+import { ProductStore } from '../../../store/product.store';
 
 @Component({
   selector: '[app-variant-row]',

@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  inject,
-} from '@angular/core';
+import { Component, inject } from '@angular/core';
 
-import { ProductStore } from '../../store/product.store';
+import { ProductStore } from '../../../store/product.store';
 import { VariantRowComponent } from '../variant-row/variant-row.component';
 
 @Component({
