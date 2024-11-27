@@ -1,0 +1,8 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <app-product-card
+      *ngFor="let item of vm.items"
+      [item]="item"
+    ></app-product-card>
+  </div>
+</ng-container>
