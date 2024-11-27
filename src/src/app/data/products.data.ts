@@ -10,7 +10,20 @@ export const products: Product[] = [
     dateStock: new Date('2024-11-01'),
     price: 120,
     type: 0, // Shoes
-    images: [],
+    images: [
+      {
+        id: 'I001',
+        name: 'S1',
+        size: 0,
+        url: 'https://brand.assets.adidas.com/image/upload/v1717008412/Training_SS_24_Strength_global_Launch_What_shoes_should_you_wear_to_the_gym_image_Rapidmove_fc98ca311b.jpg',
+      },
+      {
+        id: 'I001',
+        name: 'S1',
+        size: 0,
+        url: 'https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/g/l/0/-original-imahfhnncgghbqp8.jpeg?q=90&crop=false',
+      },
+    ],
     visible: false,
     variants: [
       { id: 'V001', color: '#000000', size: 0, quantity: 50 },
