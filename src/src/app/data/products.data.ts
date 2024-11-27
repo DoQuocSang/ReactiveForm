@@ -7,7 +7,7 @@ export const products: Product[] = [
     brand: 0, // Nike
     description: 'High-performance running shoes with exceptional cushioning.',
     weight: 750,
-    dateStock: new Date('2024-11-01'),
+    dateStock: new Date('01-11-2022'),
     price: 120,
     type: 0, // Shoes
     images: [
