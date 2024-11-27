@@ -1,12 +1,6 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  inject,
-} from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import {
   CloudUpload,
@@ -21,9 +15,7 @@ import { UploadFile } from '../../models/file.model';
 import { Variant } from '../../models/variant.model';
 import { ProductStore } from '../../store/product.store';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
-import {
-  VariantTableComponent,
-} from '../variant-table/variant-table.component';
+import { VariantTableComponent } from '../variant-table/variant-table.component';
 
 @Component({
   selector: 'app-custom-form',
@@ -112,6 +104,7 @@ export class CustomFormComponent {
     if (input.files && input.files.length > 0) {
       Array.from(input.files).forEach((item) => {
         const file: UploadFile = {
+          id: uuidv4(),
           name: item.name,
           size: item.size,
           url: URL.createObjectURL(item),
@@ -124,7 +117,9 @@ export class CustomFormComponent {
     // console.log(this.images);
   }
 
-  deleteImage(event: Event) {}
+  deleteAllImages() {
+    this.productStore.deleteAllImages();
+  }
 
   onSubmit() {
     // console.warn(this.productForm.value);

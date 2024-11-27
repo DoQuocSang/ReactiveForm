@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ImmerComponentStore } from 'ngrx-immer/component-store';
-import {
-  delay,
-  finalize,
-  of,
-  tap,
-} from 'rxjs';
+import { delay, finalize, of, tap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { products } from '../data/products.data';
@@ -154,9 +149,7 @@ export class ProductStore extends ImmerComponentStore<State> {
   });
 
   readonly deleteAllVariants = this.updater((state) => {
-    const product = state.items.find(
-      (item) => item.id === state.currentProductId
-    );
+    const product = this.getCurrentProduct(state);
 
     if (product) {
       product.variants = [];
@@ -169,12 +162,27 @@ export class ProductStore extends ImmerComponentStore<State> {
     });
   });
 
+  private getCurrentProduct(state: State) {
+    return state.items.find(
+      (item) => item.id === this.state().currentProductId
+    );
+  }
+
   readonly deleteImage = this.updater((state, id: string) => {
-    // state.items.forEach((item) => {
-    //   item.images.splice(
-    //     item.images.findIndex((item) => item.id === id),
-    //     1
-    //   );
-    // });
+    const product = this.getCurrentProduct(state);
+
+    const index = product?.images.findIndex((item) => item.id === id);
+
+    if (index !== undefined && index !== -1 && product) {
+      product.images.splice(index, 1);
+    }
+  });
+
+  readonly deleteAllImages = this.updater((state) => {
+    const product = this.getCurrentProduct(state);
+
+    if (product) {
+      product.images = [];
+    }
   });
 }
