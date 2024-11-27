@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import {
@@ -7,6 +7,7 @@ import {
   CloudUpload,
   Edit,
   LucideAngularModule,
+  Plus,
   Trash,
   X,
 } from 'lucide-angular';
@@ -35,7 +36,10 @@ export class CustomFormComponent {
   readonly Edit = Edit;
   readonly CloudUpload = CloudUpload;
   readonly X = X;
+  readonly Plus = Plus;
   readonly Check = Check;
+
+  @ViewChild('imageUrlInput') imageUrlInput!: ElementRef;
 
   private formBuilder: FormBuilder = inject(FormBuilder);
   private productStore: ProductStore = inject(ProductStore);
@@ -56,9 +60,6 @@ export class CustomFormComponent {
   ];
 
   types: string[] = ['Shoes', 'Boots', 'Loafer', 'Sandal'];
-
-  fileName = '';
-  // images: UploadFile[] = [];
 
   productForm = this.formBuilder.group({
     id: [uuidv4()],
@@ -85,6 +86,8 @@ export class CustomFormComponent {
   get visible() {
     return this.productForm.get('visible')?.value;
   }
+
+  isUseURL: boolean = false;
 
   ngOnInit() {
     this.productStore.getCurrentItem().subscribe((data) => {
@@ -121,12 +124,30 @@ export class CustomFormComponent {
         this.productStore.addImage(file);
       });
     }
+  }
 
-    // console.log(this.images);
+  handleAddImage() {
+    const inputValue = this.imageUrlInput.nativeElement.value;
+    if (inputValue) {
+      const file: UploadFile = {
+        id: uuidv4(),
+        name: 'Image URL',
+        size: 0,
+        url: inputValue,
+      };
+
+      this.productStore.addImage(file);
+    }
+
+    this.imageUrlInput.nativeElement.value = '';
   }
 
   deleteAllImages() {
     this.productStore.deleteAllImages();
+  }
+
+  toggleURLInput() {
+    this.isUseURL = !this.isUseURL;
   }
 
   onSubmit() {

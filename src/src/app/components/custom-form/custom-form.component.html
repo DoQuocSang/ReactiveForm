@@ -67,6 +67,9 @@
             <input
               id="weight"
               type="number"
+              step="10"
+              min="0"
+              max="500"
               formControlName="weight"
               placeholder="Type something"
               class="pb-2 focus:outline-none border-b focus:border-b-2 border-slate-200 focus:border-red-500 transition duration-100 ease-in-out"
@@ -88,6 +91,9 @@
             <input
               id="price"
               type="number"
+              step="100"
+              min="0"
+              max="1000000"
               formControlName="price"
               placeholder="Type something"
               class="pb-2 focus:outline-none border-b focus:border-b-2 border-slate-200 focus:border-red-500 transition duration-100 ease-in-out"
@@ -124,8 +130,43 @@
 
           <!-- File -->
           <div class="flex flex-col gap-4">
+            <!-- Main text and button -->
             <div class="flex items-center justify-between">
               <h3 class="font-semibold">Image</h3>
+
+              <div
+                *ngIf="!vm.currentItem?.images?.length"
+                class="flex items-center gap-4"
+              >
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    value=""
+                    class="sr-only peer"
+                    [checked]="isUseURL"
+                    (change)="toggleURLInput()"
+                  />
+                  <div
+                    class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-600"
+                  ></div>
+                  <span class="order-first text-sm font-medium text-slate-700"
+                    >Use URL
+                  </span>
+                </label>
+
+                <!-- <button
+                  type="button"
+                  *ngIf="isUseURL"
+                  class="font-medium bg-teal-500 text-white text-xs p-1 rounded-md"
+                >
+                  <lucide-angular
+                    [img]="Plus"
+                    strokeWidth="2"
+                    class="my-icon size-5 text-white"
+                  ></lucide-angular>
+                </button> -->
+              </div>
+
               <button
                 *ngIf="vm.currentItem?.images?.length"
                 (click)="deleteAllImages()"
@@ -136,8 +177,21 @@
               </button>
             </div>
 
+            <!-- Upload URL -->
+            <div *ngIf="isUseURL" class="flex flex-col items-centergap-2">
+              <input
+                id="images"
+                type="text"
+                class="p-2 bg-slate-50 placeholder:text-base rounded-md focus:outline-none border focus:border-2 border-slate-200 focus:border-red-500 transition duration-100 ease-in-out"
+                placeholder="Type Image URL"
+                #imageUrlInput
+                (keyup.enter)="handleAddImage()"
+              />
+            </div>
+
+            <!-- Upload box -->
             <div
-              *ngIf="!images?.length"
+              *ngIf="!images?.length && !isUseURL"
               class="flex items-center justify-center w-full"
             >
               <label
@@ -151,11 +205,11 @@
                     [img]="CloudUpload"
                     class="my-icon w-8 h-8 mb-4 text-gray-500"
                   ></lucide-angular>
-                  <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <p class="mb-2 text-sm text-gray-500">
                     <span class="font-semibold">Click to upload</span> or drag
                     and drop
                   </p>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">
+                  <p class="text-xs text-gray-500">
                     SVG, PNG, JPG or GIF (MAX. 800x400px)
                   </p>
                 </div>
@@ -183,7 +237,9 @@
 
           <!-- Is Show -->
           <div class="flex items-center justify-end gap-4">
-            <label for="price" class="font-semibold order-last">Visible</label>
+            <label for="visible" class="font-semibold order-last"
+              >Visible</label
+            >
 
             <div class="w-5 h-5 relative">
               <input
@@ -206,7 +262,6 @@
           <!-- Main buttons -->
           <button
             type="submit"
-            [disabled]="!productForm.valid"
             class="mt-4 text-white disabled:bg-slate-200 disabled:text-slate-500 bg-red-500 px-4 py-2 rounded-md font-semibold"
           >
             Submit
