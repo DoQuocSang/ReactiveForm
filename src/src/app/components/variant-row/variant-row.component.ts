@@ -36,4 +36,8 @@ export class VariantRowComponent {
   openVariantForm(id: string) {
     this.productStore.toggleVariantFormVisible(id);
   }
+
+  deleteVariant(id: string) {
+    this.productStore.deleteVariant(id);
+  }
 }

@@ -47,7 +47,6 @@ export class VariantFormComponent {
   }
 
   ngOnInit() {
-    console.log(this.variantForm.value);
     this.vm$.subscribe((data) => {
       if (data) {
         this.variantForm.patchValue({

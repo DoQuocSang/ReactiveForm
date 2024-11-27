@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
 
 import { ImmerComponentStore } from 'ngrx-immer/component-store';
-import {
-  delay,
-  finalize,
-  of,
-  tap,
-} from 'rxjs';
+import { delay, finalize, of, tap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { products } from '../data/products.data';
+import { UploadFile } from '../models/file.model';
 import { Product } from '../models/product.model';
 import { Variant } from '../models/variant.model';
 
@@ -113,55 +109,6 @@ export class ProductStore extends ImmerComponentStore<State> {
     });
   }
 
-  // addOrUpdateVariant(value: Variant) {
-  //   const { currentVariantId } = this.state() || {};
-
-  //   if (currentVariantId) {
-  //     this.updateVariant(value);
-  //   } else {
-  //     this.addVariant(value);
-  //   }
-
-  //   this.patchState({ activeVariantId: value.id });
-
-  //   this.toggleVariantFormVisible();
-  // }
-
-  // addVariant(value: Variant) {
-  //   console.log(value);
-
-  //   this.setState((prevState) => ({
-  //     ...prevState,
-  //     items: structuredClone(prevState.items).map((item) => {
-  //       return {
-  //         ...item,
-  //         variants: [...item.variants, value],
-  //       };
-  //     }),
-  //   }));
-
-  //   console.log(this.state().items[2].variants);
-  // }
-
-  // updateVariant(value: Variant) {
-  //   this.setState((prevState) => ({
-  //     ...prevState,
-  //     items: structuredClone(prevState.items).map((item) => {
-  //       return {
-  //         ...item,
-  //         variants: item.variants.map((variant) =>
-  //           variant.id === value.id
-  //             ? {
-  //                 ...variant,
-  //                 ...value,
-  //               }
-  //             : variant
-  //         ),
-  //       };
-  //     }),
-  //   }));
-  // }
-
   addVariant = this.updater((state, value: Variant) => {
     state.items.map((item) => {
       item.variants.push(value);
@@ -192,29 +139,50 @@ export class ProductStore extends ImmerComponentStore<State> {
     this.toggleVariantFormVisible();
   };
 
-  // deleteVariant(id: string) {
-  //   this.setState((prevState) => ({
-  //     ...prevState,
-  //     items: structuredClone(prevState.items).map((item) => {
-  //       return {
-  //         ...item,
-  //         variants: [...item.variants, value],
-  //       };
-  //     }),
-  //   }));
+  readonly deleteVariant = this.updater((state, id: string) => {
+    state.items.forEach((item) => {
+      item.variants.splice(
+        item.variants.findIndex((item) => item.id === id),
+        1
+      );
+    });
+  });
 
-  //   console.log(this.state().items[2].variants);
-  // }
+  readonly deleteAllVariants = this.updater((state) => {
+    const product = this.getCurrentProduct(state);
 
-  //  -------------------
-  // Foreach cannot return/break
-  //  -------------------
-  // findProductByVariantId(id: string) {
-  //   for (const product of this.state().items) {
-  //     if (product.variants.find((v) => v.id === id)) {
-  //       return product;
-  //     }
-  //   }
-  //   return null;
-  // }
+    if (product) {
+      product.variants = [];
+    }
+  });
+
+  readonly addImage = this.updater((state, value: UploadFile) => {
+    state.items.forEach((item) => {
+      if (item.id === state.currentProductId) item.images.push(value);
+    });
+  });
+
+  private getCurrentProduct(state: State) {
+    return state.items.find(
+      (item) => item.id === this.state().currentProductId
+    );
+  }
+
+  readonly deleteImage = this.updater((state, id: string) => {
+    const product = this.getCurrentProduct(state);
+
+    const index = product?.images.findIndex((item) => item.id === id);
+
+    if (index !== undefined && index !== -1 && product) {
+      product.images.splice(index, 1);
+    }
+  });
+
+  readonly deleteAllImages = this.updater((state) => {
+    const product = this.getCurrentProduct(state);
+
+    if (product) {
+      product.images = [];
+    }
+  });
 }
