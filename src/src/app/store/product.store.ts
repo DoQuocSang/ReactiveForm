@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { ImmerComponentStore } from 'ngrx-immer/component-store';
-import { delay, finalize, of, tap } from 'rxjs';
+import {
+  delay,
+  finalize,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { products } from '../data/products.data';
@@ -40,13 +46,20 @@ const defaultVariant: Variant = {
 export class ProductStore extends ImmerComponentStore<State> {
   constructor() {
     super(initialState);
-    this.loadData();
+
+    let data = sessionStorage.getItem('data');
+
+    if (data) {
+      this.patchState({ items: JSON.parse(data) });
+    } else {
+      this.loadData();
+    }
   }
 
   readonly loadData = this.effect<void>((source$) =>
     source$.pipe(
       tap(() => this.patchState({ isLoading: true })),
-      tap(
+      switchMap(() =>
         of(...products).pipe(
           delay(0),
           tap((item) => {
@@ -82,12 +95,6 @@ export class ProductStore extends ImmerComponentStore<State> {
       let editVariant = currentVariants.find(
         (item) => item.id === currentVariantId
       ) ?? { ...defaultVariant, id: uuidv4() };
-
-      // let data = sessionStorage.getItem('data');
-
-      // if (data) {
-      //   items = JSON.parse(data);
-      // }
 
       return {
         items,
@@ -194,12 +201,10 @@ export class ProductStore extends ImmerComponentStore<State> {
     }
   });
 
-  // readonly saveFormData = this.updater((state, product: Product) => {
-  //   const updatedItems = state.items.find((item) => (item.id = product.id));
-  //   sessionStorage.setItem('data', JSON.stringify(state.items));
+  readonly saveFormData = this.updater((state, product: Product) => {
+    const index = state.items.findIndex((item) => item.id === product.id);
+    state.items[index] = product;
 
-  //   if (data) {
-  //     items = JSON.parse(data);
-  //   }
-  // });
+    sessionStorage.setItem('data', JSON.stringify(state.items));
+  });
 }

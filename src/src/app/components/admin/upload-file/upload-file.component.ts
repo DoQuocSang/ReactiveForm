@@ -1,6 +1,13 @@
-import { Component, inject, Input } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+} from '@angular/core';
 
-import { LucideAngularModule, Trash } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Trash,
+} from 'lucide-angular';
 
 import { UploadFile } from '../../../models/file.model';
 import { ProductStore } from '../../../store/product.store';
@@ -20,5 +27,13 @@ export class UploadFileComponent {
 
   deleteImage(id: string) {
     this.productStore.deleteImage(id);
+  }
+
+  covertToMB(value: number) {
+    return (value / 1024 / 1024).toFixed(2);
+  }
+
+  formatFileName(value: string) {
+    return value.slice(0, 8) + '...';
   }
 }

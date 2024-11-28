@@ -1,6 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 
 import {
   Check,
@@ -14,17 +25,21 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 import { UploadFile } from '../../../models/file.model';
+import { Product } from '../../../models/product.model';
 import { Variant } from '../../../models/variant.model';
 import { ProductStore } from '../../../store/product.store';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
 import { VariantFormComponent } from '../variant-form/variant-form.component';
-import { VariantTableComponent } from '../variant-table/variant-table.component';
+import {
+  VariantTableComponent,
+} from '../variant-table/variant-table.component';
 
 @Component({
   selector: 'app-custom-form',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     LucideAngularModule,
     VariantTableComponent,
@@ -47,6 +62,7 @@ export class CustomFormComponent {
 
   private formBuilder: FormBuilder = inject(FormBuilder);
   private productStore: ProductStore = inject(ProductStore);
+  private router: Router = inject(Router);
 
   vm$ = this.productStore.vm$;
 
@@ -73,7 +89,7 @@ export class CustomFormComponent {
     brand: [0],
     type: [0],
     description: [''],
-    dateStock: [''],
+    dateStock: [new Date()],
     weight: [0],
     price: [0],
     images: [[] as UploadFile[]],
@@ -93,9 +109,15 @@ export class CustomFormComponent {
     return this.productForm.get('visible')?.value;
   }
 
-  ngOnInit() {
-    console.log(this.id);
+  get dateStock() {
+    return this.productForm.get('dateStock')?.value?.toString().slice(0, 10);
+  }
 
+  onDateChange(event: any) {
+    this.productForm.patchValue({ dateStock: event.target.value });
+  }
+
+  ngOnInit() {
     this.productStore.getCurrentItemById(this.id).subscribe((data) => {
       if (data) {
         this.productForm.patchValue({
@@ -104,7 +126,7 @@ export class CustomFormComponent {
           brand: data.brand,
           type: data.type,
           description: data.description,
-          dateStock: data.dateStock.toISOString().split('T')[0],
+          dateStock: data.dateStock,
           weight: data.weight,
           price: data.price,
           images: data.images,
@@ -157,9 +179,9 @@ export class CustomFormComponent {
   }
 
   onSubmit() {
-    // console.warn(this.productForm.value);
-    sessionStorage.setItem('formData', JSON.stringify(this.productForm.value));
-    const data = JSON.parse(sessionStorage.getItem('formData') ?? '');
-    console.log(data);
+    const formData = this.productForm.value as Product;
+    this.productStore.saveFormData(formData);
+
+    this.router.navigate(['/user']);
   }
 }
