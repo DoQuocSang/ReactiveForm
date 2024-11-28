@@ -1,6 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 
 import {
   Check,
@@ -19,13 +30,16 @@ import { Variant } from '../../../models/variant.model';
 import { ProductStore } from '../../../store/product.store';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
 import { VariantFormComponent } from '../variant-form/variant-form.component';
-import { VariantTableComponent } from '../variant-table/variant-table.component';
+import {
+  VariantTableComponent,
+} from '../variant-table/variant-table.component';
 
 @Component({
   selector: 'app-custom-form',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     LucideAngularModule,
     VariantTableComponent,
@@ -48,6 +62,7 @@ export class CustomFormComponent {
 
   private formBuilder: FormBuilder = inject(FormBuilder);
   private productStore: ProductStore = inject(ProductStore);
+  private router: Router = inject(Router);
 
   vm$ = this.productStore.vm$;
 
@@ -94,9 +109,15 @@ export class CustomFormComponent {
     return this.productForm.get('visible')?.value;
   }
 
-  ngOnInit() {
-    console.log(this.id);
+  get dateStock() {
+    return this.productForm.get('dateStock')?.value?.toString().slice(0, 10);
+  }
 
+  onDateChange(event: any) {
+    this.productForm.patchValue({ dateStock: event.target.value });
+  }
+
+  ngOnInit() {
     this.productStore.getCurrentItemById(this.id).subscribe((data) => {
       if (data) {
         this.productForm.patchValue({
@@ -158,9 +179,9 @@ export class CustomFormComponent {
   }
 
   onSubmit() {
-    sessionStorage.setItem('formData', JSON.stringify(this.productForm.value));
-    const data = JSON.parse(sessionStorage.getItem('formData') ?? '');
-    console.log(data as Product);
-    this.productStore.saveFormData(data as Product);
+    const formData = this.productForm.value as Product;
+    this.productStore.saveFormData(formData);
+
+    this.router.navigate(['/user']);
   }
 }

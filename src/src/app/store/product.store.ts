@@ -46,7 +46,14 @@ const defaultVariant: Variant = {
 export class ProductStore extends ImmerComponentStore<State> {
   constructor() {
     super(initialState);
-    this.loadData();
+
+    let data = sessionStorage.getItem('data');
+
+    if (data) {
+      this.patchState({ items: JSON.parse(data) });
+    } else {
+      this.loadData();
+    }
   }
 
   readonly loadData = this.effect<void>((source$) =>
@@ -88,12 +95,6 @@ export class ProductStore extends ImmerComponentStore<State> {
       let editVariant = currentVariants.find(
         (item) => item.id === currentVariantId
       ) ?? { ...defaultVariant, id: uuidv4() };
-
-      let data = sessionStorage.getItem('data');
-
-      if (data) {
-        items = JSON.parse(data);
-      }
 
       return {
         items,
@@ -204,7 +205,6 @@ export class ProductStore extends ImmerComponentStore<State> {
     const index = state.items.findIndex((item) => item.id === product.id);
     state.items[index] = product;
 
-    console.log(state.items);
-    // sessionStorage.setItem('data', JSON.stringify(state.items));
+    sessionStorage.setItem('data', JSON.stringify(state.items));
   });
 }

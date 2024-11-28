@@ -21,13 +21,20 @@
       <span class="text-xl font-bold">{{ item.price }}</span>
       USD
     </p>
-    <a
-      [routerLink]="['/admin/product/' + item.id]"
-      routerLinkActive="router-link-active"
-      type="button"
-      class="font-medium bg-teal-500 text-white text-sm px-3.5 py-2 rounded-md"
-    >
-      Edit
-    </a>
+    <div class="flex items-center gap-2">
+      <a
+        [routerLink]="['/admin/product/' + item.id]"
+        routerLinkActive="router-link-active"
+        class="font-medium bg-teal-500 text-white text-sm px-2.5 py-1.5 rounded-md"
+      >
+        Edit
+      </a>
+      <button
+        type="button"
+        class="font-medium bg-red-500 text-white text-sm px-2.5 py-1.5 rounded-md"
+      >
+        Delete
+      </button>
+    </div>
   </div>
 </div>
