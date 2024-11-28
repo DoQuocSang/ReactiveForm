@@ -10,6 +10,7 @@ import {
   FormBuilder,
   FormsModule,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -23,6 +24,8 @@ import {
   X,
 } from 'lucide-angular';
 import { v4 as uuidv4 } from 'uuid';
+
+import { errorTailorImports } from '@ngneat/error-tailor';
 
 import { UploadFile } from '../../../models/file.model';
 import { Product } from '../../../models/product.model';
@@ -45,6 +48,7 @@ import {
     VariantTableComponent,
     VariantFormComponent,
     UploadFileComponent,
+    errorTailorImports,
   ],
   templateUrl: './custom-form.component.html',
 })
@@ -85,13 +89,16 @@ export class CustomFormComponent {
 
   productForm = this.formBuilder.group({
     id: [uuidv4()],
-    name: [''],
-    brand: [0],
-    type: [0],
+    name: ['', [Validators.required, Validators.minLength(10)]],
+    brand: [-1],
+    type: [undefined, Validators.required],
     description: [''],
     dateStock: [new Date()],
-    weight: [0],
-    price: [0],
+    weight: [0, [Validators.min(0), Validators.max(1000)]],
+    price: [
+      0,
+      [Validators.required, Validators.min(0), Validators.max(1000000)],
+    ],
     images: [[] as UploadFile[]],
     variants: [[] as Variant[]],
     visible: [false],
@@ -110,7 +117,7 @@ export class CustomFormComponent {
   }
 
   get dateStock() {
-    return this.productForm.get('dateStock')?.value?.toString().slice(0, 10);
+    return this.productForm.get('dateStock')?.value;
   }
 
   onDateChange(event: any) {
@@ -122,9 +129,9 @@ export class CustomFormComponent {
       if (data) {
         this.productForm.patchValue({
           id: data.id,
-          name: data.name,
+          name: null,
           brand: data.brand,
-          type: data.type,
+          type: undefined,
           description: data.description,
           dateStock: data.dateStock,
           weight: data.weight,
@@ -178,10 +185,28 @@ export class CustomFormComponent {
     this.isUseURL = !this.isUseURL;
   }
 
+  checkForm() {
+    Object.keys(this.productForm.controls).forEach((field) => {
+      const control = this.productForm.get(field);
+      if (control && control.invalid) {
+        console.log(`${field} errors:`, control.errors);
+      }
+    });
+  }
+
   onSubmit() {
+    Object.keys(this.productForm.controls).forEach((field) => {
+      const control = this.productForm.get(field);
+      if (control && control.invalid) {
+        console.log(`${field} errors:`, control.errors);
+      }
+    });
+
+    console.log(this.productForm);
+
     const formData = this.productForm.value as Product;
     this.productStore.saveFormData(formData);
 
-    this.router.navigate(['/user']);
+    // this.router.navigate(['/user']);
   }
 }

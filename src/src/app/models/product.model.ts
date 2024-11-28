@@ -9,7 +9,7 @@ export type Product = {
   weight: number;
   dateStock: Date;
   price: number;
-  type: number;
+  type?: number;
   images: UploadFile[];
   variants: Variant[];
   visible: boolean;
