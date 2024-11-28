@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 
 import { ImmerComponentStore } from 'ngrx-immer/component-store';
-import { delay, finalize, of, tap } from 'rxjs';
+import {
+  delay,
+  finalize,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { products } from '../data/products.data';
@@ -46,7 +52,7 @@ export class ProductStore extends ImmerComponentStore<State> {
   readonly loadData = this.effect<void>((source$) =>
     source$.pipe(
       tap(() => this.patchState({ isLoading: true })),
-      tap(
+      switchMap(() =>
         of(...products).pipe(
           delay(0),
           tap((item) => {
