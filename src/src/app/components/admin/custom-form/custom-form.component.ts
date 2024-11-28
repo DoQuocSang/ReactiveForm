@@ -91,7 +91,7 @@ export class CustomFormComponent {
     id: [uuidv4()],
     name: ['', [Validators.required, Validators.minLength(10)]],
     brand: [-1],
-    type: [undefined, Validators.required],
+    type: [<number | undefined>undefined, Validators.required],
     description: [''],
     dateStock: [new Date()],
     weight: [0, [Validators.min(0), Validators.max(1000)]],
@@ -129,9 +129,9 @@ export class CustomFormComponent {
       if (data) {
         this.productForm.patchValue({
           id: data.id,
-          name: null,
+          name: data.name,
           brand: data.brand,
-          type: undefined,
+          type: data.type,
           description: data.description,
           dateStock: data.dateStock,
           weight: data.weight,
@@ -207,6 +207,6 @@ export class CustomFormComponent {
     const formData = this.productForm.value as Product;
     this.productStore.saveFormData(formData);
 
-    // this.router.navigate(['/user']);
+    this.router.navigate(['/user']);
   }
 }
