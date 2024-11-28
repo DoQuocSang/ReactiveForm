@@ -7,6 +7,7 @@
         (keydown.enter)="$event.preventDefault()"
         action="/user"
         class="shadow-lg bg-white p-10 rounded-lg flex flex-col gap-4 text-slate-700 border-t-4 border-red-500"
+        errorTailor
       >
         <h1
           class="text-center mb-4 bg-clip-text text-transparent bg-gradient-to-tr from-red-500 to-orange-500 font-black text-3xl"
@@ -34,6 +35,7 @@
               formControlName="name"
               placeholder="Type something"
               class="pb-2 focus:outline-none border-b focus:border-b-2 border-slate-200 focus:border-red-500 transition duration-100 ease-in-out"
+              controlErrorsClass="text-red-500 font-medium text-sm"
             />
           </div>
 
@@ -44,6 +46,7 @@
               id="brand"
               formControlName="brand"
               class="py-2 focus:outline-none border-b border-slate-200 focus:border-2 focus:border-red-500 rounded-md"
+              controlErrorsClass="text-red-500 font-medium text-sm"
             >
               <option *ngFor="let item of brands; index as i" [value]="i">
                 {{ item }}
@@ -71,10 +74,11 @@
               type="number"
               step="10"
               min="0"
-              max="500"
+              max="1000"
               formControlName="weight"
               placeholder="Type something"
               class="pb-2 focus:outline-none border-b focus:border-b-2 border-slate-200 focus:border-red-500 transition duration-100 ease-in-out"
+              controlErrorsClass="text-red-500 font-medium text-sm"
             />
           </div>
 
@@ -84,7 +88,7 @@
               id="dateStock"
               type="date"
               (change)="onDateChange($event)"
-              [value]="dateStock"
+              formControlName="dateStock"
               class="pb-2 focus:outline-none border-b focus:border-b-2 border-slate-200 focus:border-red-500 transition duration-100 ease-in-out"
             />
           </div>
@@ -100,34 +104,60 @@
               formControlName="price"
               placeholder="Type something"
               class="pb-2 focus:outline-none border-b focus:border-b-2 border-slate-200 focus:border-red-500 transition duration-100 ease-in-out"
+              controlErrorsClass="text-red-500 font-medium text-sm"
             />
           </div>
 
           <!-- Type -->
-          <div
-            class="flex items-center space-x-8 border-b border-slate-200 pb-4"
-          >
-            <h3 for="brand" class="font-semibold mr-4">Type</h3>
+          <div class="border-b border-slate-200 pb-4">
+            <div class="flex items-center space-x-8">
+              <h3 for="brand" class="font-semibold mr-4">Type</h3>
 
-            <div
-              *ngFor="let item of types; index as i"
-              class="flex items-center gap-2"
-            >
-              <div class="relative h-5 w-5">
-                <input
-                  name="type_radio"
-                  type="radio"
-                  class="peer w-full h-full cursor-pointer forced-colors:appearance-auto appearance-none rounded-full border bg-slate-100 border-slate-300 checked:border-red-400 checked:border-2 transition-all"
-                  id="item"
-                  [checked]="type === i"
-                  [value]="item"
-                />
-                <span
-                  class="bg-red-500 w-2.5 h-2.5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none rounded-full absolute opacity-0 peer-checked:opacity-100 transition-opacity duration-200"
-                >
-                </span>
+              <div class="flex flex-col items-center gap-2">
+                <div class="flex gap-4">
+                  <div
+                    class="flex gap-4 items-center"
+                    *ngFor="let item of types; index as i"
+                  >
+                    <div class="relative h-5 w-5">
+                      <input
+                        *ngIf="i === 0"
+                        type="radio"
+                        class="peer w-full h-full cursor-pointer forced-colors:appearance-auto appearance-none rounded-full border bg-slate-100 border-slate-300 checked:border-red-400 checked:border-2 transition-all"
+                        [checked]="type !== undefined && type === i"
+                        [value]="i"
+                        [id]="'type-' + i"
+                        formControlName="type"
+                        name="type"
+                        [controlErrorAnchor]="anchor"
+                        controlErrorsClass="text-center mt-4 text-red-500 font-medium text-sm"
+                      />
+                      <input
+                        *ngIf="i !== 0"
+                        type="radio"
+                        class="peer w-full h-full cursor-pointer forced-colors:appearance-auto appearance-none rounded-full border bg-slate-100 border-slate-300 checked:border-red-400 checked:border-2 transition-all"
+                        [checked]="type !== undefined && type === i"
+                        [value]="i"
+                        [id]="'type-' + i"
+                        formControlName="type"
+                        name="type"
+                        controlErrorsIgnore
+                      />
+                      <span
+                        class="bg-red-500 w-2.5 h-2.5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none rounded-full absolute opacity-0 peer-checked:opacity-100 transition-opacity duration-200"
+                      >
+                      </span>
+                    </div>
+                    <label for="item">{{ item }}</label>
+                  </div>
+                </div>
               </div>
-              <label for="item">{{ item }}</label>
+            </div>
+            <div class="w-full">
+              <ng-template
+                controlErrorAnchor
+                #anchor="controlErrorAnchor"
+              ></ng-template>
             </div>
           </div>
 
@@ -256,10 +286,19 @@
           <!-- Main buttons -->
           <button
             type="submit"
+            [disabled]="productForm.valid"
             class="mt-4 text-white disabled:bg-slate-200 disabled:text-slate-500 bg-red-500 px-4 py-2 rounded-md font-semibold"
           >
             Submit
           </button>
+
+          <!-- <button
+            type="button"
+            (click)="checkForm()"
+            class="mt-4 text-white disabled:bg-slate-200 disabled:text-slate-500 bg-red-500 px-4 py-2 rounded-md font-semibold"
+          >
+            Check {{ productForm.valid }}
+          </button> -->
         </ng-container>
       </form>
     </div>

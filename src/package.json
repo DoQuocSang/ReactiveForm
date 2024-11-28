@@ -18,6 +18,7 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
+    "@ngneat/error-tailor": "^5.0.1",
     "@ngrx/component-store": "^18.1.1",
     "lucide-angular": "^0.460.0",
     "ngrx-immer": "^3.0.0",
