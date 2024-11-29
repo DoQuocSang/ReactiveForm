@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { ImmerComponentStore } from 'ngrx-immer/component-store';
-import {
-  delay,
-  finalize,
-  of,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { delay, finalize, of, switchMap, tap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { products } from '../data/products.data';
@@ -26,7 +20,7 @@ interface State {
 
 const initialState: State = {
   items: [],
-  currentProductId: 'P000',
+  currentProductId: '',
   currentVariantId: 'V000',
   isEditVariant: false,
   isLoading: false,
@@ -201,10 +195,21 @@ export class ProductStore extends ImmerComponentStore<State> {
     }
   });
 
-  readonly saveFormData = this.updater((state, product: Product) => {
-    const index = state.items.findIndex((item) => item.id === product.id);
-    state.items[index] = product;
+  readonly deleteProduct = this.updater((state, id: string) => {
+    const index = state.items.findIndex((item) => item.id === id);
 
+    if (index !== undefined && index !== -1) {
+      state.items.splice(index, 1);
+    }
+  });
+
+  readonly saveFormData = this.updater((state, product: Product) => {
+    if (state.currentProductId !== '') {
+      const index = state.items.findIndex((item) => item.id === product.id);
+      state.items[index] = product;
+    } else {
+      state.items.push(product);
+    }
     sessionStorage.setItem('data', JSON.stringify(state.items));
   });
 }

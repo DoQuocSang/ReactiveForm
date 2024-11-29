@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  inject,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -33,9 +27,7 @@ import { Variant } from '../../../models/variant.model';
 import { ProductStore } from '../../../store/product.store';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
 import { VariantFormComponent } from '../variant-form/variant-form.component';
-import {
-  VariantTableComponent,
-} from '../variant-table/variant-table.component';
+import { VariantTableComponent } from '../variant-table/variant-table.component';
 
 @Component({
   selector: 'app-custom-form',
@@ -90,8 +82,8 @@ export class CustomFormComponent {
   productForm = this.formBuilder.group({
     id: [uuidv4()],
     name: ['', [Validators.required, Validators.minLength(10)]],
-    brand: [-1],
-    type: [<number | undefined>undefined, Validators.required],
+    brand: [undefined as number | null | undefined, Validators.required],
+    type: [undefined as number | null | undefined, Validators.required],
     description: [''],
     dateStock: [new Date()],
     weight: [0, [Validators.min(0), Validators.max(1000)]],
@@ -112,6 +104,11 @@ export class CustomFormComponent {
     return this.productForm.get('images')?.value;
   }
 
+  get brand() {
+    console.log(this.productForm.get('brand')?.value);
+    return this.productForm.get('brand')?.value;
+  }
+
   get visible() {
     return this.productForm.get('visible')?.value;
   }
@@ -125,27 +122,30 @@ export class CustomFormComponent {
   }
 
   ngOnInit() {
-    this.productStore.getCurrentItemById(this.id).subscribe((data) => {
-      if (data) {
-        this.productForm.patchValue({
-          id: data.id,
-          name: data.name,
-          brand: data.brand,
-          type: data.type,
-          description: data.description,
-          dateStock: data.dateStock,
-          weight: data.weight,
-          price: data.price,
-          images: data.images,
-          variants: data.variants,
-          visible: data.visible,
-        });
-      }
-    });
+    if (this.id) {
+      this.productStore.getCurrentItemById(this.id).subscribe((data) => {
+        if (data) {
+          this.productForm.patchValue({
+            id: data.id,
+            name: data.name,
+            brand: data.brand,
+            description: data.description,
+            dateStock: data.dateStock,
+            type: data.type ?? undefined,
+            weight: data.weight,
+            price: data.price,
+            images: data.images,
+            variants: data.variants,
+            visible: data.visible,
+          });
+        }
+      });
+    }
   }
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
+    console.log(input.files);
 
     if (input.files && input.files.length > 0) {
       Array.from(input.files).forEach((item) => {
@@ -204,9 +204,11 @@ export class CustomFormComponent {
 
     console.log(this.productForm);
 
-    const formData = this.productForm.value as Product;
-    this.productStore.saveFormData(formData);
+    if (this.productForm.valid) {
+      const formData = this.productForm.value as Product;
+      this.productStore.saveFormData(formData);
 
-    this.router.navigate(['/user']);
+      this.router.navigate(['/user']);
+    }
   }
 }

@@ -1,18 +1,10 @@
 import { Routes } from '@angular/router';
 
-import {
-  CustomFormComponent,
-} from './components/admin/custom-form/custom-form.component';
+import { CustomFormComponent } from './components/admin/custom-form/custom-form.component';
 import { ErrorComponent } from './components/error/error.component';
-import {
-  AdminLayoutComponent,
-} from './components/layouts/admin-layout/admin-layout.component';
-import {
-  UserLayoutComponent,
-} from './components/layouts/user-layout/user-layout.component';
-import {
-  ProductsListComponent,
-} from './components/user/products-list/products-list.component';
+import { AdminLayoutComponent } from './components/layouts/admin-layout/admin-layout.component';
+import { UserLayoutComponent } from './components/layouts/user-layout/user-layout.component';
+import { ProductsListComponent } from './components/user/products-list/products-list.component';
 
 export const routes: Routes = [
   {
@@ -20,6 +12,7 @@ export const routes: Routes = [
     component: AdminLayoutComponent,
     children: [
       { path: 'product/:id', component: CustomFormComponent },
+      { path: 'product', component: CustomFormComponent },
       { path: '', redirectTo: 'product', pathMatch: 'full' },
     ],
   },
