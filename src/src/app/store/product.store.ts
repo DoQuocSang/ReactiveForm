@@ -11,6 +11,7 @@ import { Variant } from '../models/variant.model';
 
 interface State {
   items: Product[];
+  currentProduct: Product;
   currentProductId: string;
   currentVariantId: string;
   isEditVariant: boolean;
@@ -21,7 +22,8 @@ interface State {
 const initialState: State = {
   items: [],
   currentProductId: '',
-  currentVariantId: 'V000',
+  currentVariantId: '',
+  currentProduct: {} as Product,
   isEditVariant: false,
   isLoading: false,
   activeVariantId: 'No variant',
@@ -32,6 +34,20 @@ const defaultVariant: Variant = {
   color: '#000000',
   size: 0,
   quantity: 0,
+};
+
+const defaultProduct: Product = {
+  id: 'P000',
+  name: '',
+  brand: undefined,
+  description: '',
+  weight: 0,
+  dateStock: new Date(),
+  price: 0,
+  type: undefined,
+  images: [],
+  variants: [],
+  visible: false,
 };
 
 @Injectable({
@@ -50,12 +66,12 @@ export class ProductStore extends ImmerComponentStore<State> {
     }
   }
 
-  readonly loadData = this.effect<void>((source$) =>
-    source$.pipe(
+  readonly loadData = this.effect<void>((source$) => {
+    return source$.pipe(
       tap(() => this.patchState({ isLoading: true })),
       switchMap(() =>
         of(...products).pipe(
-          delay(0),
+          delay(100),
           tap((item) => {
             this.setState((state) => {
               return {
@@ -69,8 +85,8 @@ export class ProductStore extends ImmerComponentStore<State> {
           })
         )
       )
-    )
-  );
+    );
+  });
 
   readonly vm$ = this.select(
     ({
@@ -111,26 +127,30 @@ export class ProductStore extends ImmerComponentStore<State> {
   };
 
   getCurrentItemById(id: string) {
-    this.patchState({ currentProductId: id });
-
-    return this.select((state) => {
-      return state.items.find((item) => item.id === id);
-    });
+    if (id) {
+      this.patchState({ currentProductId: id });
+      return this.select((state) => state.items.find((item) => item.id === id));
+    } else {
+      this.patchState({ currentProductId: '' });
+      return of(defaultProduct);
+    }
   }
 
   addVariant = this.updater((state, value: Variant) => {
-    state.items.map((item) => {
-      item.variants.push(value);
-    });
+    const product = state.items.find(
+      (item) => item.id === this.state().currentProductId
+    );
+
+    product?.variants.push(value);
   });
 
   updateVariant = this.updater((state, value: Variant) => {
-    state.items.forEach((item) => {
-      item.variants.forEach((variant) => {
-        if (variant.id === value.id) {
-          Object.assign(variant, value);
-        }
-      });
+    const product = this.getCurrentProduct(state);
+
+    product?.variants.forEach((variant) => {
+      if (variant.id === value.id) {
+        Object.assign(variant, value);
+      }
     });
   });
 
@@ -148,13 +168,20 @@ export class ProductStore extends ImmerComponentStore<State> {
     this.toggleVariantFormVisible();
   };
 
+  private getCurrentProduct(state: State) {
+    return state.items.find(
+      (item) => item.id === this.state().currentProductId
+    );
+  }
+
   readonly deleteVariant = this.updater((state, id: string) => {
-    state.items.forEach((item) => {
-      item.variants.splice(
-        item.variants.findIndex((item) => item.id === id),
-        1
-      );
-    });
+    const product = this.getCurrentProduct(state);
+
+    const index = product?.variants.findIndex((item) => item.id === id);
+
+    if (index !== undefined && index !== -1 && product) {
+      product.variants.splice(index, 1);
+    }
   });
 
   readonly deleteAllVariants = this.updater((state) => {
@@ -166,16 +193,10 @@ export class ProductStore extends ImmerComponentStore<State> {
   });
 
   readonly addImage = this.updater((state, value: UploadFile) => {
-    state.items.forEach((item) => {
-      if (item.id === state.currentProductId) item.images.push(value);
-    });
-  });
+    const product = this.getCurrentProduct(state);
 
-  private getCurrentProduct(state: State) {
-    return state.items.find(
-      (item) => item.id === this.state().currentProductId
-    );
-  }
+    product?.images.push(value);
+  });
 
   readonly deleteImage = this.updater((state, id: string) => {
     const product = this.getCurrentProduct(state);

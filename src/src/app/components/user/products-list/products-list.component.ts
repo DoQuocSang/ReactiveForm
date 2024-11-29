@@ -25,4 +25,8 @@ export class ProductsListComponent {
   productStore: ProductStore = inject(ProductStore);
 
   vm$ = this.productStore.vm$;
+
+  ngOnInit() {
+    this.vm$.subscribe((v) => console.log(v));
+  }
 }

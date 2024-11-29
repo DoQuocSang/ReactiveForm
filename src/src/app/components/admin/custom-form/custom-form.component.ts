@@ -122,25 +122,27 @@ export class CustomFormComponent {
   }
 
   ngOnInit() {
-    if (this.id) {
-      this.productStore.getCurrentItemById(this.id).subscribe((data) => {
-        if (data) {
-          this.productForm.patchValue({
-            id: data.id,
-            name: data.name,
-            brand: data.brand,
-            description: data.description,
-            dateStock: data.dateStock,
-            type: data.type ?? undefined,
-            weight: data.weight,
-            price: data.price,
-            images: data.images,
-            variants: data.variants,
-            visible: data.visible,
-          });
-        }
-      });
-    }
+    this.productStore.getCurrentItemById(this.id).subscribe((data) => {
+      if (data) {
+        this.patchValueToForm(data);
+      }
+    });
+  }
+
+  patchValueToForm(data: Product) {
+    this.productForm.patchValue({
+      id: data.id,
+      name: data.name,
+      brand: data.brand ?? null,
+      description: data.description,
+      dateStock: data.dateStock,
+      type: data.type ?? null,
+      weight: data.weight,
+      price: data.price,
+      images: data.images,
+      variants: data.variants,
+      visible: data.visible,
+    });
   }
 
   onFileSelected(event: Event) {
@@ -195,14 +197,7 @@ export class CustomFormComponent {
   }
 
   onSubmit() {
-    Object.keys(this.productForm.controls).forEach((field) => {
-      const control = this.productForm.get(field);
-      if (control && control.invalid) {
-        console.log(`${field} errors:`, control.errors);
-      }
-    });
-
-    console.log(this.productForm);
+    this.checkForm();
 
     if (this.productForm.valid) {
       const formData = this.productForm.value as Product;

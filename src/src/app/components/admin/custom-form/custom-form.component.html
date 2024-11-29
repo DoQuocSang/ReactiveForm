@@ -49,7 +49,7 @@
               controlErrorsClass="text-red-500 font-medium text-sm"
               [controlErrorAnchor]="brandAnchor"
             >
-              <option [value]="null" [selected]="true">Choose a brand</option>
+              <option [value]="null">Choose a brand</option>
               <option *ngFor="let item of brands; index as i" [value]="i">
                 {{ item }}
               </option>
