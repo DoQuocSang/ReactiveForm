@@ -1,0 +1,23 @@
+<div class="relative z-0 w-full pb-[100%] overflow-hidden rounded-md shadow-md">
+  <button
+    (click)="deleteImage(item.id)"
+    type="button"
+    class="absolute z-[3] top-0 right-0 p-2 rounded-bl-md bg-white bg-opacity-80 hover:bg-opacity-100"
+  >
+    <lucide-angular
+      [img]="Trash"
+      class="my-icon w-5 h-5 text-red-500"
+    ></lucide-angular>
+  </button>
+  <img
+    [src]="item.url"
+    alt="File upload"
+    class="absolute z-0 w-full h-full object-cover object-center"
+  />
+  <div
+    class="absolute Z-[3] flex flex-col gap-1 justify-center items-center bottom-0 left-0 text-xs bg-white bg-opacity-80 text-slate-700 w-full px-6 py-2"
+  >
+    <p class="text-sm font-medium">{{ formatFileName(item.name) }}</p>
+    <p class="text-xs font-medium">{{ covertToMB(item.size) }} MB</p>
+  </div>
+</div>
