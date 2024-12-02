@@ -1,15 +1,16 @@
 import { inject, Injectable } from '@angular/core';
 
 import { ImmerComponentStore } from 'ngrx-immer/component-store';
-import { finalize, of, switchMap, tap } from 'rxjs';
+import { finalize, map, of, switchMap, tap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
+import { formatTime } from '../helpers/general.helper';
 import { UploadFile } from '../models/file.model';
 import { Paging } from '../models/paging.model';
 import { Product } from '../models/product.model';
 import { Responses } from '../models/responses.model';
 import { Variant } from '../models/variant.model';
-import { ApiService } from '../service/api.service';
+import { ApiService } from '../services/api.service';
 
 interface State {
   items: Product[];
@@ -44,7 +45,7 @@ const defaultProduct: Product = {
   brand: undefined,
   description: '',
   weight: 0,
-  dateStock: new Date(),
+  dateStock: formatTime(),
   price: 0,
   type: undefined,
   images: [],
@@ -152,12 +153,12 @@ export class ProductStore extends ImmerComponentStore<State> {
 
   getCurrentItemById(id: string) {
     if (id) {
-      this.patchState({ currentProductId: id });
-      return this.select((state) => state.items.find((item) => item.id === id));
-    } else {
-      this.patchState({ currentProductId: '' });
-      return of(defaultProduct);
+      return this.apiService
+        .get<Product>(`product/${id}`)
+        .pipe(map((data) => data || defaultProduct));
     }
+
+    return of(defaultProduct);
   }
 
   addVariant = this.updater((state, value: Variant) => {

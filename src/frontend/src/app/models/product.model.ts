@@ -7,7 +7,7 @@ export type Product = {
   brand?: number;
   description: string;
   weight: number;
-  dateStock: Date;
+  dateStock: string;
   price: number;
   type?: number;
   images: UploadFile[];

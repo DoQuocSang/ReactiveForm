@@ -21,6 +21,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { errorTailorImports } from '@ngneat/error-tailor';
 
+import { formatTime } from '../../../helpers/general.helper';
 import { UploadFile } from '../../../models/file.model';
 import { Product } from '../../../models/product.model';
 import { Variant } from '../../../models/variant.model';
@@ -85,7 +86,7 @@ export class CustomFormComponent {
     brand: [undefined as number | null | undefined, Validators.required],
     type: [undefined as number | null | undefined, Validators.required],
     description: [''],
-    dateStock: [new Date()],
+    dateStock: [formatTime()],
     weight: [0, [Validators.min(0), Validators.max(1000)]],
     price: [
       0,
@@ -124,6 +125,7 @@ export class CustomFormComponent {
   ngOnInit() {
     this.productStore.getCurrentItemById(this.id).subscribe((data) => {
       if (data) {
+        console.log(data);
         this.patchValueToForm(data);
       }
     });
@@ -135,7 +137,7 @@ export class CustomFormComponent {
       name: data.name,
       brand: data.brand ?? null,
       description: data.description,
-      dateStock: data.dateStock,
+      dateStock: formatTime(data.dateStock),
       type: data.type ?? null,
       weight: data.weight,
       price: data.price,

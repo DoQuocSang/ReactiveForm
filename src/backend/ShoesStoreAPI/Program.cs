@@ -39,8 +39,8 @@ var faker = new Faker<Product>()
         .RuleFor(o => o.Id, f => Guid.NewGuid().ToString())
         .RuleFor(o => o.DateStock, f => f.Date.Future())
         .RuleFor(o => o.Weight, f => f.Random.Int(10, 700))
-        .RuleFor(o => o.Brand, f => f.Random.Int(0, 3))
-        .RuleFor(o => o.Type, f => f.Random.Int(0, 9))
+        .RuleFor(o => o.Brand, f => f.Random.Int(0, 9))
+        .RuleFor(o => o.Type, f => f.Random.Int(0, 3))
         .RuleFor(o => o.Price, f => f.Random.Float(0, 1000))
         .RuleFor(o => o.Description, f => f.Lorem.Paragraph(1))
         .RuleFor(o => o.Name, f => f.Random.Words(new Random().Next(1, 5)));
@@ -142,6 +142,7 @@ public class Respones
     public Respones(List<Product> list, int totalPage, int currentPage)
     {
         this.List = list;
+
         this.TotalPage = totalPage;
         this.CurrentPage = currentPage;
     }
