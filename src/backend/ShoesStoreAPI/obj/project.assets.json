@@ -6062,23 +6062,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\LENOVO\\.nuget\\packages\\": {},
+    "C:\\Users\\VIET HOANG - VTS\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.csproj",
+      "projectUniqueName": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.csproj",
       "projectName": "ShoesStoreAPI",
-      "projectPath": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.csproj",
-      "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\obj\\",
+      "projectPath": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.csproj",
+      "packagesPath": "C:\\Users\\VIET HOANG - VTS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\VIET HOANG - VTS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

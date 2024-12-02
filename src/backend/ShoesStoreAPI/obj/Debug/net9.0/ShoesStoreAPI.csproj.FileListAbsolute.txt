@@ -42,3 +42,47 @@ C:\Users\LENOVO\Desktop\SDL\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net
 C:\Users\LENOVO\Desktop\SDL\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Microsoft.Extensions.PlatformAbstractions.dll
 C:\Users\LENOVO\Desktop\SDL\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Newtonsoft.Json.dll
 C:\Users\LENOVO\Desktop\SDL\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Swashbuckle.SwaggerUi.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\appsettings.json
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\ShoesStoreAPI.staticwebassets.endpoints.json
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\ShoesStoreAPI.exe
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\ShoesStoreAPI.deps.json
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\ShoesStoreAPI.runtimeconfig.json
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\ShoesStoreAPI.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\ShoesStoreAPI.pdb
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Bogus.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Microsoft.DotNet.InternalAbstractions.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Microsoft.Extensions.PlatformAbstractions.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Swashbuckle.SwaggerUi.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.csproj.AssemblyReference.cache
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.AssemblyInfoInputs.cache
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.AssemblyInfo.cs
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.csproj.CoreCompileInputs.cache
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.sourcelink.json
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\scopedcss\bundle\ShoesStoreAPI.styles.css
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\staticwebassets\msbuild.ShoesStoreAPI.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\staticwebassets\msbuild.ShoesStoreAPI.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\staticwebassets\msbuild.build.ShoesStoreAPI.props
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.ShoesStoreAPI.props
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.ShoesStoreAPI.props
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesSto.E49C51DB.Up2Date
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\refint\ShoesStoreAPI.dll
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.pdb
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ShoesStoreAPI.genruntimeconfig.cache
+C:\Users\VIET HOANG - VTS\Desktop\SangData\ReactiveForm\src\backend\ShoesStoreAPI\obj\Debug\net9.0\ref\ShoesStoreAPI.dll

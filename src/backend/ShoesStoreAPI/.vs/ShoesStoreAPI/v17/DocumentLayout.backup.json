@@ -1,25 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\",
+  "WorkspaceRootPath": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|c:\\users\\lenovo\\desktop\\sdl\\reactiveform\\src\\backend\\shoesstoreapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|c:\\users\\viet hoang - vts\\desktop\\sangdata\\reactiveform\\src\\backend\\shoesstoreapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|c:\\users\\lenovo\\desktop\\sdl\\reactiveform\\src\\backend\\shoesstoreapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|c:\\users\\lenovo\\desktop\\sdl\\reactiveform\\src\\backend\\shoesstoreapi\\shoesstoreapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "AbsoluteMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|c:\\users\\viet hoang - vts\\desktop\\sangdata\\reactiveform\\src\\backend\\shoesstoreapi\\shoesstoreapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|solutionrelative:shoesstoreapi.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|c:\\users\\lenovo\\desktop\\sdl\\reactiveform\\src\\backend\\shoesstoreapi\\shoesstoreapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "AbsoluteMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|c:\\users\\viet hoang - vts\\desktop\\sangdata\\reactiveform\\src\\backend\\shoesstoreapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|c:\\users\\viet hoang - vts\\desktop\\sangdata\\reactiveform\\src\\backend\\shoesstoreapi\\shoesstoreapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
       "RelativeMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|solutionrelative:shoesstoreapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|c:\\users\\lenovo\\desktop\\sdl\\reactiveform\\src\\backend\\shoesstoreapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "AbsoluteMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|c:\\users\\viet hoang - vts\\desktop\\sangdata\\reactiveform\\src\\backend\\shoesstoreapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{EC3251DF-14C2-4176-AE54-DD49CBA2C5EB}|ShoesStoreAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
@@ -34,70 +34,66 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\Properties\\launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\Properties\\launchSettings.json",
               "RelativeToolTip": "Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-01T23:12:15.105Z",
+              "WhenOpened": "2024-12-02T01:14:47.118Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "ShoesStoreAPI",
-              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.csproj",
+              "DocumentMoniker": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.csproj",
               "RelativeDocumentMoniker": "ShoesStoreAPI.csproj",
-              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.csproj",
+              "ToolTip": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.csproj",
               "RelativeToolTip": "ShoesStoreAPI.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-12-01T23:12:12.333Z",
+              "WhenOpened": "2024-12-02T01:14:45.889Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "ShoesStoreAPI.http",
-              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.http",
+              "DocumentMoniker": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.http",
               "RelativeDocumentMoniker": "ShoesStoreAPI.http",
-              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.http",
+              "ToolTip": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\ShoesStoreAPI.http",
               "RelativeToolTip": "ShoesStoreAPI.http",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2024-12-01T23:04:10.112Z",
+              "WhenOpened": "2024-12-02T01:14:03.582Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAAAFsAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAACwAAAA/AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-01T22:43:30.77Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\appsettings.json",
+              "DocumentMoniker": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\LENOVO\\Desktop\\SDL\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\VIET HOANG - VTS\\Desktop\\SangData\\ReactiveForm\\src\\backend\\ShoesStoreAPI\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-12-01T23:04:07.266Z",
+              "WhenOpened": "2024-12-02T01:14:00.88Z",
               "EditorCaption": ""
             }
           ]

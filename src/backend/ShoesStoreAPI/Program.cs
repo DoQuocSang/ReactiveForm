@@ -1,4 +1,7 @@
+using System.Reflection;
 using Bogus;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -20,37 +31,46 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseCors();
 app.UseHttpsRedirection();
 
 var faker = new Faker<Product>()
         .UseSeed(45)
-        .RuleFor(o => o.Id, f => (f.UniqueIndex + 1).ToString())
+        .RuleFor(o => o.Id, f => Guid.NewGuid().ToString())
         .RuleFor(o => o.DateStock, f => f.Date.Future())
         .RuleFor(o => o.Weight, f => f.Random.Int(10, 700))
         .RuleFor(o => o.Brand, f => f.Random.Int(0, 3))
         .RuleFor(o => o.Type, f => f.Random.Int(0, 9))
+        .RuleFor(o => o.Price, f => f.Random.Float(0, 1000))
         .RuleFor(o => o.Description, f => f.Lorem.Paragraph(1))
-    ;
+        .RuleFor(o => o.Name, f => f.Random.Words(new Random().Next(1, 5)));
 
-app.MapGet("/product", () =>
+var _list = new List<Product>();
+
+_list = faker.Generate(30);
+
+app.MapGet("/api/product", ([AsParameters] PageRequest request) =>
 {
-    //Task.Delay(5000)
-    Thread.Sleep(5000);
-    var list = faker.Generate(10);
-    return list;
+    var list = _list.OrderBy(x => x.Id).Skip((request.Page - 1) * request.PageSize).Take(request.PageSize).ToList();
+
+    var response = new Respones(list, request.Page, _list.Count/request.PageSize);
+
+    return Results.Ok(response);
 })
-.WithName("GetProduct")
+.WithName("GetProducts")
 .WithOpenApi();
 
 
-app.MapPost("/product/{id}", ([AsParameters] PageRequest request) =>
+app.MapGet("/api/product/{id}", (string id) =>
 {
-    return request;
+    var item = _list.Find(item => item.Id == id);
+    return (item != null) ? Results.Ok(item) : Results.NotFound();
 })
-.WithName("GetPageProduct")
+.WithName("GetProductById")
 .WithOpenApi();
 
-app.MapPost("/product", (Product model) =>
+
+app.MapPost("/api/product", (Product model) =>
 {
     try
     {
@@ -58,7 +78,7 @@ app.MapPost("/product", (Product model) =>
         {
             throw new Exception("Invalid Id");
         }
-        model.Description += "abc";
+        model.Id = Guid.NewGuid().ToString();
         //return Results.Created($"/product/{model.Id}", model);
         return Results.Ok(model);
     }
@@ -70,7 +90,7 @@ app.MapPost("/product", (Product model) =>
 .WithName("CreateProduct")
 .WithOpenApi();
 
-app.MapPut("/product", (Product model) =>
+app.MapPut("/api/product", (Product model) =>
 {
     try
     {
@@ -91,21 +111,45 @@ app.MapPut("/product", (Product model) =>
 
 app.Run();
 
-internal record Product
+
+
+public record Product
 {
     public string Id { get; set; }
+    public string Name { get; set; }
     public string Description { get; set; }
     public DateTime DateStock { get; set; }
     public int Weight { get; set; }
+    public float Price { get; set; }
     public int? Brand { get; set; }
     public int? Type { get; set; }
     public bool Visible { get; set; }
 }
 
+public class Respones
+{
+    public List<Product> List { get; set; }
+    public int TotalPage { get; set; }
+    public int CurrentPage { get; set; }
+
+    public Respones()
+    {
+        this.List = new List<Product>();
+        this.TotalPage = 0;
+        this.CurrentPage = 0;
+    }
+
+    public Respones(List<Product> list, int totalPage, int currentPage)
+    {
+        this.List = list;
+        this.TotalPage = totalPage;
+        this.CurrentPage = currentPage;
+    }
+}
 
 public class PageRequest
 {
-    public int Page { get; set; }
-    public int PageSize { get; set; }
-    public string Filter { get; set; }
+    public int Page { get; set; } = 1;
+    public int PageSize { get; set; } = 10;
+    public string Filter { get; set; } = "asc";
 }

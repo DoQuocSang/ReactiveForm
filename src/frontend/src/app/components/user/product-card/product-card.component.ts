@@ -15,12 +15,16 @@ export class ProductCardComponent {
   private productStore: ProductStore = inject(ProductStore);
 
   getFeatureImage(): string {
-    return this.item.images.length
+    return this.item.images
       ? this.item.images[0].url
       : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdveE4s_eyYYAAJOFDxVVq2NRatc6EjMdQ2Vf699x0aKSsrymAV4r5vAE55HRC6GIJ5gg&usqp=CAU';
   }
 
   deleteProduct(id: string) {
     this.productStore.deleteProduct(id);
+  }
+
+  formatPrice(value: number) {
+    return value.toFixed(1);
   }
 }

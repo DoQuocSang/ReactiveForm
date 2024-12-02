@@ -1,13 +1,15 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { ImmerComponentStore } from 'ngrx-immer/component-store';
-import { delay, finalize, of, switchMap, tap } from 'rxjs';
+import { finalize, of, switchMap, tap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { products } from '../data/products.data';
 import { UploadFile } from '../models/file.model';
+import { Paging } from '../models/paging.model';
 import { Product } from '../models/product.model';
+import { Responses } from '../models/responses.model';
 import { Variant } from '../models/variant.model';
+import { ApiService } from '../service/api.service';
 
 interface State {
   items: Product[];
@@ -54,6 +56,8 @@ const defaultProduct: Product = {
   providedIn: 'root',
 })
 export class ProductStore extends ImmerComponentStore<State> {
+  private apiService: ApiService = inject(ApiService);
+
   constructor() {
     super(initialState);
 
@@ -67,16 +71,21 @@ export class ProductStore extends ImmerComponentStore<State> {
   }
 
   readonly loadData = this.effect<void>((source$) => {
+    var paging: Paging = {
+      Page: 1,
+      PageSize: 10,
+      Filter: 'asc',
+    };
+
     return source$.pipe(
       tap(() => this.patchState({ isLoading: true })),
       switchMap(() =>
-        of(...products).pipe(
-          delay(100),
-          tap((item) => {
+        this.apiService.get<Responses>('product', paging).pipe(
+          tap((data) => {
             this.setState((state) => {
               return {
                 ...state,
-                items: [...state.items, item],
+                items: data.list,
               };
             });
           }),
@@ -87,6 +96,21 @@ export class ProductStore extends ImmerComponentStore<State> {
       )
     );
   });
+
+  // of(...products).pipe(
+  //   delay(100),
+  //   tap((item) => {
+  //     this.setState((state) => {
+  //       return {
+  //         ...state,
+  //         items: [...state.items, item],
+  //       };
+  //     });
+  //   }),
+  //   finalize(() => {
+  //     this.patchState({ isLoading: false });
+  //   })
+  // )
 
   readonly vm$ = this.select(
     ({
