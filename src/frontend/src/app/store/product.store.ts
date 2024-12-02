@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ImmerComponentStore } from 'ngrx-immer/component-store';
 import { finalize, map, of, switchMap, tap } from 'rxjs';
@@ -58,17 +59,20 @@ const defaultProduct: Product = {
 })
 export class ProductStore extends ImmerComponentStore<State> {
   private apiService: ApiService = inject(ApiService);
+  activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   constructor() {
     super(initialState);
 
-    let data = sessionStorage.getItem('data');
+    // let data = sessionStorage.getItem('data');
 
-    if (data) {
-      this.patchState({ items: JSON.parse(data) });
-    } else {
-      this.loadData();
-    }
+    // if (data) {
+    //   this.patchState({ items: JSON.parse(data) });
+    // } else {
+    //   this.loadData();
+    // }
+
+    this.loadData();
   }
 
   readonly loadData = this.effect<void>((source$) => {
@@ -153,6 +157,7 @@ export class ProductStore extends ImmerComponentStore<State> {
 
   getCurrentItemById(id: string) {
     if (id) {
+      this.patchState({ currentProductId: id });
       return this.apiService
         .get<Product>(`product/${id}`)
         .pipe(map((data) => data || defaultProduct));
@@ -162,9 +167,7 @@ export class ProductStore extends ImmerComponentStore<State> {
   }
 
   addVariant = this.updater((state, value: Variant) => {
-    const product = state.items.find(
-      (item) => item.id === this.state().currentProductId
-    );
+    const product = this.getCurrentProduct(state);
 
     product?.variants.push(value);
   });
@@ -218,6 +221,7 @@ export class ProductStore extends ImmerComponentStore<State> {
   });
 
   readonly addImage = this.updater((state, value: UploadFile) => {
+    debugger;
     const product = this.getCurrentProduct(state);
 
     product?.images.push(value);
@@ -256,6 +260,6 @@ export class ProductStore extends ImmerComponentStore<State> {
     } else {
       state.items.push(product);
     }
-    sessionStorage.setItem('data', JSON.stringify(state.items));
+    // sessionStorage.setItem('data', JSON.stringify(state.items));
   });
 }

@@ -1,5 +1,6 @@
 using System.Reflection;
 using Bogus;
+using Bogus.DataSets;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Newtonsoft.Json;
 
@@ -34,7 +35,22 @@ if (app.Environment.IsDevelopment())
 app.UseCors();
 app.UseHttpsRedirection();
 
-var faker = new Faker<Product>()
+
+var imageFaker = new Faker<UploadFile>()
+        .UseSeed(45)
+        .RuleFor(o => o.Id, f => Guid.NewGuid().ToString())
+        .RuleFor(o => o.Name, f => f.Random.Words(new Random().Next(1, 5)))
+        .RuleFor(o => o.Size, f => f.Random.Int(10, 1000))
+        .RuleFor(o => o.Url, f => f.Image.PicsumUrl());
+
+var variantFaker = new Faker<Variant>()
+        .UseSeed(45)
+        .RuleFor(o => o.Id, f => Guid.NewGuid().ToString())
+        .RuleFor(o => o.Color, f => f.Internet.Color())
+        .RuleFor(o => o.Size, f => f.Random.Int(10, 1000))
+        .RuleFor(o => o.Quantity, f => f.Random.Int(10, 500));
+
+var productFaker = new Faker<Product>()
         .UseSeed(45)
         .RuleFor(o => o.Id, f => Guid.NewGuid().ToString())
         .RuleFor(o => o.DateStock, f => f.Date.Future())
@@ -43,11 +59,13 @@ var faker = new Faker<Product>()
         .RuleFor(o => o.Type, f => f.Random.Int(0, 3))
         .RuleFor(o => o.Price, f => f.Random.Float(0, 1000))
         .RuleFor(o => o.Description, f => f.Lorem.Paragraph(1))
+        .RuleFor(o => o.Images, f => imageFaker.Generate(new Random().Next(1, 10)).ToArray())
+        .RuleFor(o => o.Variants, f => variantFaker.Generate(new Random().Next(1, 10)).ToArray())
         .RuleFor(o => o.Name, f => f.Random.Words(new Random().Next(1, 5)));
 
 var _list = new List<Product>();
 
-_list = faker.Generate(30);
+_list = productFaker.Generate(30);
 
 app.MapGet("/api/product", ([AsParameters] PageRequest request) =>
 {
@@ -124,6 +142,24 @@ public record Product
     public int? Brand { get; set; }
     public int? Type { get; set; }
     public bool Visible { get; set; }
+    public UploadFile[] Images { get; set; }
+    public Variant[] Variants { get; set; }
+
+}
+public record UploadFile
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public int Size { get; set; }
+    public string Url { get; set; }
+}
+
+public record Variant
+{
+    public string Id { get; set; }
+    public string Color { get; set; }
+    public int Size { get; set; }
+    public int Quantity { get; set; }
 }
 
 public class Respones

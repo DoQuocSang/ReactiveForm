@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { ProductStore } from '../../../store/product.store';
 import { VariantRowComponent } from '../variant-row/variant-row.component';
@@ -12,6 +13,13 @@ import { VariantRowComponent } from '../variant-row/variant-row.component';
 })
 export class VariantTableComponent {
   productStore: ProductStore = inject(ProductStore);
+  activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+
+  id: string = '';
+
+  ngOnInit() {
+    this.id = this.activatedRoute.snapshot.params['id'];
+  }
 
   vm$ = this.productStore.vm$;
 

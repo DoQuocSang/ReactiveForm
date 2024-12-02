@@ -160,7 +160,8 @@ export class CustomFormComponent {
           url: URL.createObjectURL(item),
         };
 
-        this.productStore.addImage(file);
+        // this.productStore.addImage(file);
+        this.images?.push(file);
       });
     }
   }
@@ -201,11 +202,13 @@ export class CustomFormComponent {
   onSubmit() {
     this.checkForm();
 
-    if (this.productForm.valid) {
-      const formData = this.productForm.value as Product;
-      this.productStore.saveFormData(formData);
+    console.log(this.productForm.value);
 
-      this.router.navigate(['/user']);
-    }
+    // if (this.productForm.valid) {
+    //   const formData = this.productForm.value as Product;
+    //   this.productStore.saveFormData(formData);
+
+    //   this.router.navigate(['/user']);
+    // }
   }
 }

@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "Program\u002B\u003C\u003Ec__DisplayClass0_0",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__18",
+    "Method": "\u003C\u003CMain\u003E$\u003Eb__38",
     "RelativePath": "api/product",
     "HttpMethod": "GET",
     "IsController": false,
@@ -34,7 +34,7 @@
   },
   {
     "ContainingType": "Program\u002B\u003C\u003Ec",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_20",
+    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_40",
     "RelativePath": "api/product",
     "HttpMethod": "POST",
     "IsController": false,
@@ -57,7 +57,7 @@
   },
   {
     "ContainingType": "Program\u002B\u003C\u003Ec",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_21",
+    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_41",
     "RelativePath": "api/product",
     "HttpMethod": "PUT",
     "IsController": false,
@@ -80,7 +80,7 @@
   },
   {
     "ContainingType": "Program\u002B\u003C\u003Ec__DisplayClass0_0",
-    "Method": "\u003C\u003CMain\u003E$\u003Eb__19",
+    "Method": "\u003C\u003CMain\u003E$\u003Eb__39",
     "RelativePath": "api/product/{id}",
     "HttpMethod": "GET",
     "IsController": false,
