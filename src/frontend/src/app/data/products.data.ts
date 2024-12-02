@@ -1,3 +1,4 @@
+import { formatDateTime } from '../helpers/general.helper';
 import { Product } from '../models/product.model';
 
 export const products: Product[] = [
@@ -7,7 +8,7 @@ export const products: Product[] = [
     brand: 0, // Nike
     description: 'High-performance running shoes with exceptional cushioning.',
     weight: 750,
-    dateStock: new Date('2024-09-10'),
+    dateStock: formatDateTime('2024-09-10'),
     price: 120,
     type: 2, // Shoes
     images: [
@@ -36,7 +37,7 @@ export const products: Product[] = [
     brand: 1, // Adidas
     description: 'Comfortable shoes designed for running and casual wear.',
     weight: 680,
-    dateStock: new Date('2024-10-15'),
+    dateStock: formatDateTime('2024-10-15'),
     price: 150,
     type: 0, // Shoes
     images: [],
@@ -52,7 +53,7 @@ export const products: Product[] = [
     brand: 2, // Puma
     description: 'Stylish retro-inspired sneakers with a bold design.',
     weight: 800,
-    dateStock: new Date('2024-09-10'),
+    dateStock: formatDateTime('2024-09-10'),
     price: 110,
     type: 2, // Shoes
     images: [],
@@ -68,7 +69,7 @@ export const products: Product[] = [
     brand: 3, // Asics
     description: 'Premium cushioning shoes for long-distance running.',
     weight: 720,
-    dateStock: new Date('2024-08-20'),
+    dateStock: formatDateTime('2024-08-20'),
     price: 140,
     type: 0, // Shoes
     images: [],
@@ -81,7 +82,7 @@ export const products: Product[] = [
     brand: 4, // New Balance
     description: 'Classic shoes with a timeless silhouette.',
     weight: 600,
-    dateStock: new Date('2024-07-12'),
+    dateStock: formatDateTime('2024-07-12'),
     price: 90,
     type: 2, // Loafer
     images: [],
@@ -94,7 +95,7 @@ export const products: Product[] = [
     brand: 5, // Reebok
     description: 'Cross-training shoes for all-around performance.',
     weight: 690,
-    dateStock: new Date('2024-06-30'),
+    dateStock: formatDateTime('2024-06-30'),
     price: 130,
     type: 0, // Shoes
     images: [],
@@ -110,7 +111,7 @@ export const products: Product[] = [
     brand: 6, // Under Armour
     description: 'Responsive shoes with energy return technology.',
     weight: 700,
-    dateStock: new Date('2024-05-18'),
+    dateStock: formatDateTime('2024-05-18'),
     price: 135,
     type: 1, // Boots
     images: [],
@@ -123,7 +124,7 @@ export const products: Product[] = [
     brand: 7, // Converse
     description: 'Classic high-top sneakers for casual wear.',
     weight: 500,
-    dateStock: new Date('2024-04-10'),
+    dateStock: formatDateTime('2024-04-10'),
     price: 60,
     type: 0, // Shoes
     images: [],
@@ -136,7 +137,7 @@ export const products: Product[] = [
     brand: 8, // Vans
     description: 'Iconic skate shoes with a durable design.',
     weight: 550,
-    dateStock: new Date('2024-03-22'),
+    dateStock: formatDateTime('2024-03-22'),
     price: 75,
     type: 2, // Loafer
     images: [],
@@ -152,7 +153,7 @@ export const products: Product[] = [
     brand: 9, // Fila
     description: 'Chunky sneakers with a modern twist.',
     weight: 900,
-    dateStock: new Date('2024-02-15'),
+    dateStock: formatDateTime('2024-02-15'),
     price: 95,
     type: 3, // Sandal
     images: [],

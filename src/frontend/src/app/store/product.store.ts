@@ -4,7 +4,7 @@ import { ImmerComponentStore } from 'ngrx-immer/component-store';
 import { finalize, map, of, switchMap, tap } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
-import { formatTime } from '../helpers/general.helper';
+import { formatDateTime } from '../helpers/general.helper';
 import { UploadFile } from '../models/file.model';
 import { Paging } from '../models/paging.model';
 import { Product } from '../models/product.model';
@@ -45,7 +45,7 @@ const defaultProduct: Product = {
   brand: undefined,
   description: '',
   weight: 0,
-  dateStock: formatTime(),
+  dateStock: formatDateTime(),
   price: 0,
   type: undefined,
   images: [],

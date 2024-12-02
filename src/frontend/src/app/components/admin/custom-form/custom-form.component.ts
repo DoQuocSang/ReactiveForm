@@ -21,7 +21,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { errorTailorImports } from '@ngneat/error-tailor';
 
-import { formatTime } from '../../../helpers/general.helper';
+import { formatDateTime } from '../../../helpers/general.helper';
 import { UploadFile } from '../../../models/file.model';
 import { Product } from '../../../models/product.model';
 import { Variant } from '../../../models/variant.model';
@@ -86,7 +86,7 @@ export class CustomFormComponent {
     brand: [undefined as number | null | undefined, Validators.required],
     type: [undefined as number | null | undefined, Validators.required],
     description: [''],
-    dateStock: [formatTime()],
+    dateStock: [formatDateTime()],
     weight: [0, [Validators.min(0), Validators.max(1000)]],
     price: [
       0,
@@ -137,7 +137,7 @@ export class CustomFormComponent {
       name: data.name,
       brand: data.brand ?? null,
       description: data.description,
-      dateStock: formatTime(data.dateStock),
+      dateStock: formatDateTime(data.dateStock),
       type: data.type ?? null,
       weight: data.weight,
       price: data.price,
