@@ -1,9 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+} from '@angular/core';
 
-import { Edit, LucideAngularModule, Trash } from 'lucide-angular';
+import {
+  Edit,
+  LucideAngularModule,
+  Trash,
+} from 'lucide-angular';
 
 import { Variant } from '../../../models/variant.model';
+import { VariantService } from '../../../services/variant.service';
 import { ProductStore } from '../../../store/product.store';
 
 @Component({
@@ -22,11 +31,13 @@ export class VariantRowComponent {
   readonly Edit = Edit;
 
   private productStore: ProductStore = inject(ProductStore);
+  private variantService: VariantService = inject(VariantService);
 
   vm$ = this.productStore.vm$;
 
   openVariantForm(id: string) {
-    this.productStore.toggleVariantFormVisible(id);
+    this.variantService.toggleVariantForm(id);
+    this.variantService.currentVariant = this.item;
   }
 
   deleteVariant(id: string) {

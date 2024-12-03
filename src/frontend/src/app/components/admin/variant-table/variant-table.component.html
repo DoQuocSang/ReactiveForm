@@ -1,4 +1,4 @@
-<ng-container *ngIf="vm$ | async as vm">
+<ng-container *ngIf="variants">
   <div class="">
     <div class="flex justify-between items-center mb-4">
       <h3 class="font-medium">Variant</h3>
@@ -34,23 +34,27 @@
         <tbody>
           <tr
             app-variant-row
-            *ngFor="let item of vm.currentVariants"
+            *ngFor="let item of variants"
             [item]="item"
             class="hover:bg-slate-100"
-            [ngClass]="
-              item.id === vm.activeVariantId
-                ? 'text-emerald-500 font-medium'
-                : ''
-            "
           ></tr>
         </tbody>
+        <!-- [ngClass]="
+        item.id === vm.activeVariantId
+          ? 'text-emerald-500 font-medium'
+          : ''
+      " -->
       </table>
       <div
-        *ngIf="!vm.currentItem?.variants?.length"
+        *ngIf="!variants.length"
         class="w-full text-center border-b border-slate-200 py-2 text-slate-500"
       >
         This product has no variant
       </div>
+
+      <!-- Variant Form -->
+      <app-variant-form *ngIf="isVariantFormVisible"></app-variant-form>
     </div>
+    <!-- <button (click)="Log()">asdasdsad</button> -->
   </div>
 </ng-container>

@@ -1,8 +1,17 @@
-import { inject, Injectable } from '@angular/core';
+import {
+  inject,
+  Injectable,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ImmerComponentStore } from 'ngrx-immer/component-store';
-import { finalize, map, of, switchMap, tap } from 'rxjs';
+import {
+  finalize,
+  map,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { formatDateTime } from '../helpers/general.helper';
@@ -16,6 +25,7 @@ import { ApiService } from '../services/api.service';
 interface State {
   items: Product[];
   currentProduct: Product;
+  currentVariants: Variant[];
   currentProductId: string;
   currentVariantId: string;
   isEditVariant: boolean;
@@ -27,6 +37,7 @@ const initialState: State = {
   items: [],
   currentProductId: '',
   currentVariantId: '',
+  currentVariants: [],
   currentProduct: {} as Product,
   isEditVariant: false,
   isLoading: false,
@@ -102,21 +113,6 @@ export class ProductStore extends ImmerComponentStore<State> {
     );
   });
 
-  // of(...products).pipe(
-  //   delay(100),
-  //   tap((item) => {
-  //     this.setState((state) => {
-  //       return {
-  //         ...state,
-  //         items: [...state.items, item],
-  //       };
-  //     });
-  //   }),
-  //   finalize(() => {
-  //     this.patchState({ isLoading: false });
-  //   })
-  // )
-
   readonly vm$ = this.select(
     ({
       items,
@@ -148,7 +144,7 @@ export class ProductStore extends ImmerComponentStore<State> {
     }
   );
 
-  readonly toggleVariantFormVisible = (id?: string) => {
+  readonly toggleVariantForm = (id?: string) => {
     this.patchState({
       currentVariantId: id,
       isEditVariant: !this.state().isEditVariant,
@@ -193,7 +189,7 @@ export class ProductStore extends ImmerComponentStore<State> {
 
     this.patchState({ activeVariantId: value.id });
 
-    this.toggleVariantFormVisible();
+    this.toggleVariantForm();
   };
 
   private getCurrentProduct(state: State) {
@@ -221,7 +217,6 @@ export class ProductStore extends ImmerComponentStore<State> {
   });
 
   readonly addImage = this.updater((state, value: UploadFile) => {
-    debugger;
     const product = this.getCurrentProduct(state);
 
     product?.images.push(value);

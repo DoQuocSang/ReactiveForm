@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject, Input, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -25,10 +31,12 @@ import { formatDateTime } from '../../../helpers/general.helper';
 import { UploadFile } from '../../../models/file.model';
 import { Product } from '../../../models/product.model';
 import { Variant } from '../../../models/variant.model';
+import { VariantService } from '../../../services/variant.service';
 import { ProductStore } from '../../../store/product.store';
 import { UploadFileComponent } from '../upload-file/upload-file.component';
-import { VariantFormComponent } from '../variant-form/variant-form.component';
-import { VariantTableComponent } from '../variant-table/variant-table.component';
+import {
+  VariantTableComponent,
+} from '../variant-table/variant-table.component';
 
 @Component({
   selector: 'app-custom-form',
@@ -39,7 +47,6 @@ import { VariantTableComponent } from '../variant-table/variant-table.component'
     ReactiveFormsModule,
     LucideAngularModule,
     VariantTableComponent,
-    VariantFormComponent,
     UploadFileComponent,
     errorTailorImports,
   ],
@@ -60,6 +67,7 @@ export class CustomFormComponent {
   private formBuilder: FormBuilder = inject(FormBuilder);
   private productStore: ProductStore = inject(ProductStore);
   private router: Router = inject(Router);
+  private variantService: VariantService = inject(VariantService);
 
   vm$ = this.productStore.vm$;
 
@@ -105,8 +113,11 @@ export class CustomFormComponent {
     return this.productForm.get('images')?.value;
   }
 
+  get variants() {
+    return this.productForm.get('variants')?.value;
+  }
+
   get brand() {
-    console.log(this.productForm.get('brand')?.value);
     return this.productForm.get('brand')?.value;
   }
 
@@ -123,12 +134,16 @@ export class CustomFormComponent {
   }
 
   ngOnInit() {
-    this.productStore.getCurrentItemById(this.id).subscribe((data) => {
-      if (data) {
-        console.log(data);
-        this.patchValueToForm(data);
-      }
-    });
+    if (this.id) {
+      this.productStore.getCurrentItemById(this.id).subscribe((data) => {
+        if (data) {
+          this.patchValueToForm(data);
+        }
+      });
+    } else {
+      this.productForm.patchValue({ images: [], variants: [] });
+      this.variantService.variants = [];
+    }
   }
 
   patchValueToForm(data: Product) {
@@ -145,6 +160,8 @@ export class CustomFormComponent {
       variants: data.variants,
       visible: data.visible,
     });
+
+    this.variantService.variants = [...data.variants];
   }
 
   onFileSelected(event: Event) {
@@ -201,6 +218,7 @@ export class CustomFormComponent {
 
   onSubmit() {
     this.checkForm();
+    this.productForm.patchValue({ variants: this.variantService.variants });
 
     console.log(this.productForm.value);
 

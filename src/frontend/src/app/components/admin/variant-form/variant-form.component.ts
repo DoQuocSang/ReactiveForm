@@ -1,11 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  inject,
+} from '@angular/core';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
-import { LucideAngularModule, X } from 'lucide-angular';
-import { v4 as uuidv4 } from 'uuid';
+import {
+  LucideAngularModule,
+  X,
+} from 'lucide-angular';
 
 import { Variant } from '../../../models/variant.model';
+import { VariantService } from '../../../services/variant.service';
 import { ProductStore } from '../../../store/product.store';
 
 @Component({
@@ -19,6 +28,7 @@ export class VariantFormComponent {
 
   productStore: ProductStore = inject(ProductStore);
   formBuilder: FormBuilder = inject(FormBuilder);
+  variantService: VariantService = inject(VariantService);
 
   vm$ = this.productStore.vm$;
 
@@ -27,36 +37,43 @@ export class VariantFormComponent {
   sizes: number[] = [39, 40, 41, 42, 43];
 
   variantForm = this.formBuilder.group({
-    id: [uuidv4()],
-    color: [''],
+    id: ['abc'],
+    color: ['#000000'],
     size: [0],
     quantity: [0],
   });
+
+  currentVariantId?: string;
 
   get color() {
     return this.variantForm.get('color')?.value;
   }
 
+  get id() {
+    return this.variantForm.get('id')?.value;
+  }
+
   ngOnInit() {
-    this.vm$.subscribe((data) => {
-      if (data) {
-        this.variantForm.patchValue({
-          id: data.editVariant?.id,
-          color: data.editVariant?.color,
-          size: 0,
-          quantity: data.editVariant?.quantity,
-        });
-      }
-    });
+    const data = this.variantService.currentVariant;
+
+    this.currentVariantId = this.variantService.currentVariantId;
+
+    if (data) {
+      this.variantForm.patchValue({
+        id: data.id,
+        color: data.color,
+        size: 0,
+        quantity: data.quantity,
+      });
+    }
   }
 
   closeForm() {
-    this.productStore.toggleVariantFormVisible();
+    this.variantService.closeVariantForm();
   }
 
   onSubmit() {
-    this.productStore.addOrUpdateVariant(this.variantForm.value as Variant);
+    this.variantService.addOrUpdateVariant(this.variantForm.value as Variant);
+    this.variantService.toggleVariantForm();
   }
-
-  addVariant() {}
 }

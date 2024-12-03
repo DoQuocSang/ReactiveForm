@@ -1,8 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import {
+  Component,
+  inject,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { LucideAngularModule, Plus } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Plus,
+} from 'lucide-angular';
 
 import { ProductStore } from '../../../store/product.store';
 import { ProductCardComponent } from '../product-card/product-card.component';
@@ -25,8 +31,4 @@ export class ProductsListComponent {
   productStore: ProductStore = inject(ProductStore);
 
   vm$ = this.productStore.vm$;
-
-  ngOnInit() {
-    this.vm$.subscribe((v) => console.log(v));
-  }
 }
